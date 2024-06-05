@@ -60,10 +60,11 @@
             font-size: 16px;
             margin-right: 10px;
             cursor: pointer;
-            transition: background-color 0;
+            transition: background-color 0.3s; /* 시간을 지정해주세요 (예: 0.3초) */
+        }
     </style>
 </head>
- <body style="overflow:auto">
+<body style="overflow:auto">
     <h1>화홍고 시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
@@ -97,9 +98,16 @@
         <h2>급식표</h2>
         <ul id="meal"></ul>
     </div>
+
+    <div id="result">
+        <h2>시간표</h2>
+        <ul id="schedule"></ul>
+        <h2>급식표</h2>
+        <ul id="meal"></ul>
+    </div>
     
     <div class="name">
-        10217 이한결
+        "10217 이한결"
     </div>
 
     <script>
