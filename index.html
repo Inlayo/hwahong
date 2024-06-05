@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="화홍고">
+    <meta property="og:description" content="동아리(ㅎㅎ)">
+    <meta property="og:image" content="previewimage.png">
+    <meta property="og:url" content="https://hwahonghs.kro.kr">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="hwahong high school">
+    <meta property="og:locale" content="ko_KR">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화홍고등학교 시간표 및 급식표</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label, select, button {
+            margin-right: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .date-display {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .name {
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+ <body style="overflow:auto">
+    <h1>화홍고 시간표 및 급식표</h1>
+    <div id="current-date" class="date-display"></div>
+    <form id="schedule-form">
+        <label for="grade">학년:</label>
+        <select id="grade">
+            <option value="1">1학년</option>
+            <option value="2">2학년</option>
+            <option value="3">3학년</option>
+        </select>
+        <label for="class_num">반:</label>
+        <select id="class_num">
+            <option value="1">1반</option>
+            <option value="2">2반</option>
+            <option value="3">3반</option>
+            <option value="4">4반</option>
+            <option value="5">5반</option>
+            <option value="6">6반</option>
+            <option value="7">7반</option>
+            <option value="8">8반</option>
+            <option value="9">9반</option>
+            <option value="10">10반</option>
+            <option value="11">11반</option>
+            <option value="12">12반</option>
+        </select>
+        <button type="button" onclick="fetchData()">조회</button>
+    </form>
+
+    <div id="result">
+        <h2>시간표</h2>
+        <ul id="schedule"></ul>
+        <h2>급식표</h2>
+        <ul id="meal"></ul>
+    </div>
+    
+    <div class="name">
+        10217 이한결
+    </div>
+
+    <script>
+        const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
+        const EDUCATION_OFFICE_CODE = 'J10';
+        const SCHOOL_CODE = '7530479';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedGrade = localStorage.getItem('grade');
+            const savedClassNum = localStorage.getItem('class_num');
+
+            if (savedGrade) {
+                document.getElementById('grade').value = savedGrade;
+            }
+
+            if (savedClassNum) {
+                document.getElementById('class_num').value = savedClassNum;
+            }
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2);
+            const day = ('0' + today.getDate()).slice(-2);
+            document.getElementById('current-date').textContent = `오늘의 날짜: ${year}년 ${month}월 ${day}일`;
+
+            if (savedGrade && savedClassNum) {
+                fetchData();
+            }
+        });
+
+        async function fetchData() {
+            const grade = document.getElementById('grade').value;
+            const class_num = document.getElementById('class_num').value;
+
+            localStorage.setItem('grade', grade);
+            localStorage.setItem('class_num', class_num);
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2);
+            const day = ('0' + today.getDate()).slice(-2);
+
+            const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${year}${month}${day}&GRADE=${grade}&CLASS_NM=${class_num}`;
+            const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
+
+            try {
+                const [scheduleResponse, mealResponse] = await Promise.all([
+                    fetch(scheduleUrl),
+                    fetch(mealUrl)
+                ]);
+
+                const scheduleData = await scheduleResponse.json();
+                const mealData = await mealResponse.json();
+
+                displayData(scheduleData, mealData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        function displayData(scheduleData, mealData) {
+            const scheduleList = document.getElementById('schedule');
+            const mealList = document.getElementById('meal');
+
+            scheduleList.innerHTML = '';
+            mealList.innerHTML = '';
+
+            if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
+                scheduleData.hisTimetable[1].row.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
+                    scheduleList.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = '시간표 정보를 불러올 수 없습니다.';
+                scheduleList.appendChild(li);
+            }
+
+            if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
+                mealData.mealServiceDietInfo[1].row.forEach(item => {
+                    const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\s*\([^\)]*\)/g, '').trim();
+                    const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '');
+                    menus.forEach(menu => {
+                        const li = document.createElement('li');
+                        li.textContent = menu;
+                        mealList.appendChild(li);
+                    });
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = '급식표 정보를 불러올 수 없습니다.';
+                mealList.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>
