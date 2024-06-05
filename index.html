@@ -5,7 +5,7 @@
     <meta property="og:title" content="화홍고">
     <meta property="og:description" content="동아리(ㅎㅎ)">
     <meta property="og:image" content="previewimage.png">
-    <meta property="og:url" content="https://hwahong.pages.dev">
+    <meta property="og:url" content="https://hwahonghs.kro.kr">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="hwahong high school">
     <meta property="og:locale" content="ko_KR">
@@ -14,15 +14,13 @@
     <title>대충 만드는 화홍고 시간표 및 급식표</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             padding: 20px;
             border-radius: 10px;
-            background-color: #f8f9fa;
         }
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 20px;
-            color: #333;
         }
         form {
             margin-bottom: 20px;
@@ -40,47 +38,32 @@
         .date-display {
             margin-bottom: 20px;
             font-weight: bold;
-            color: #666;
+        }
+        .name {
+            font-size: 7px;
+            margin-top: 20px;
         }
         .styled-select {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #fff;
+            background-color: #f5f5f5;
             font-size: 16px;
             margin-right: 10px;
-            color: #333
         }
         .styled-button {
             padding: 8px 16px;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #007bff;
-            color: #fff;
+            color: white;
             font-size: 16px;
             margin-right: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .styled-button:hover {
-            background-color: #0056b3;
-        }
-        #result {
-            margin-top: 20px;
-        }
-        #result h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .name {
-            font-size: 7px;
-            margin-top: 20px;
-            color: #666;
-        }
+            transition: background-color 0;
     </style>
 </head>
-<body style="overflow:auto">
+ <body style="overflow:auto">
     <h1>화홍고 시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
@@ -160,8 +143,7 @@
             const day = ('0' + today.getDate()).slice(-2);
 
             const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${year}${month}${day}&GRADE=${grade}&CLASS_NM=${class_num}`;
-            const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${ED
-
+            const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
 
             try {
                 const [scheduleResponse, mealResponse] = await Promise.all([
