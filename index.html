@@ -242,7 +242,7 @@
                     const li = document.createElement('li');
                     li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
                     scheduleList.appendChild(li);
-                });
+            });
             } else {
                 const li = document.createElement('li');
                 li.textContent = '시간표 정보가 없다 ㅋ';
@@ -252,12 +252,12 @@
             if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
                 mealData.mealServiceDietInfo[1].row.forEach(item => {
                     const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\s*\([^\)]*\)/g, '').trim();
-                    const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '');
+                    const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '' && /[0-9]+/.test(menu));
                     menus.forEach(menu => {
-                        const li = document.createElement('li');
+                    const li = document.createElement('li');
                         li.textContent = menu;
                         mealList.appendChild(li);
-                    });
+                });
                 });
             } else {
                 const li = document.createElement('li');
