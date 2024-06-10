@@ -17,6 +17,7 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             border-radius: 10px;
+            overflow-x: auto;
         }
         h1 {
             font-size: 24px;
@@ -79,6 +80,8 @@
              width: 100%;
              border-collapse: collapse;
              margin-bottom: 20px;
+             border-radius: 10px;
+             overflow: hidden;
          }
          th, td {
              border: 1px solid #cccccc;
@@ -88,9 +91,14 @@
          th {
              background-color: #f2f2f2;
          }
+         @media only screen and (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+         }
     </style>
 </head>
-<body style="overflow:auto">
+<body>
     <h1>화홍고 시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
@@ -123,7 +131,7 @@
         <h2>시간표</h2>
         <div id="schedule"></div>
         <h2>급식표</h2>
-        <ul id="meal"></ul>
+        <div id="meal"></div>
     </div>
     
     <div class="name">
@@ -131,7 +139,7 @@
     </div>
     
     <script>
-        const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
+            const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
         const EDUCATION_OFFICE_CODE = 'J10';
         const SCHOOL_CODE = '7530479';
 
