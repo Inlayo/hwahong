@@ -149,9 +149,9 @@
 
     <div id="result">
         <h2>시간표</h2>
-        <ul id="schedule"></ul>
+        <div id="schedule"></div>
         <h2>급식표</h2>
-        <ul id="meal"></ul>
+        <div id="meal"></div>
     </div>
 
     <div class="name">
@@ -272,7 +272,7 @@
             if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
                 mealData.mealServiceDietInfo[1].row.forEach(item => {
                     const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\s*\([^\)]*\)/g, '').trim();
-                    const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '' && /[0-9]+/.test(menu));
+                    const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '');
                     menus.forEach(menu => {
                         const li = document.createElement('li');
                         li.textContent = menu;
