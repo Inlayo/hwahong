@@ -9,7 +9,6 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="10217 이한결">
     <meta property="og:locale" content="ko_KR">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대충 만드는 화홍고 시간표 및 급식표</title>
     <style>
@@ -139,7 +138,7 @@
     </div>
     
     <script>
-        const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
+            const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
         const EDUCATION_OFFICE_CODE = 'J10';
         const SCHOOL_CODE = '7530479';
 
@@ -214,8 +213,8 @@
 
             const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&TI_FROM_YMD=${startYMD}&TI_TO_YMD=${endYMD}&GRADE=${grade}&CLASS_NM=${class_num}`;
             const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_FROM_YMD=${startYMD}&MLSV_TO_YMD=${endYMD}`;
-
-            try {
+            
+                try {
                 const [scheduleResponse, mealResponse] = await Promise.all([
                     fetch(scheduleUrl),
                     fetch(mealUrl)
@@ -286,7 +285,7 @@
                 });
 
                 const days = ['월', '화', '수', '목', '금'];
-                const periods = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시'];
+                const periods = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시'];
 
                 const table = document.createElement('table');
                 const thead = document.createElement('thead');
