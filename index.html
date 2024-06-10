@@ -13,7 +13,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대충 만드는 화홍고 시간표 및 급식표</title>
     <style>
-        /* CSS 코드는 그대로 유지됩니다. */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label, select, button {
+            margin-right: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .date-display {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #666666;
+        }
+        .name {
+            font-size: 7px;
+            margin-top: 20px;
+        }
+        .styled-select {
+             padding: 8px 16px;
+             border: 1px solid #cccccc;
+             border-radius: 5px;
+             background-color: #ffffff;
+             font-size: 16px;
+             margin-right: 10px;
+             color: #333333;
+         }
+         .styled-button {
+             padding: 8px 16px;
+             border: 1px solid #cccccc;
+             border-radius: 5px;
+             background-color: #0077ff;
+             color: #ffffff;
+             font-size: 16px;
+             margin-right: 10px;
+             cursor: pointer;
+             transition: background-color 0.3s;
+         }
+         .styled-button:hover {
+             background-color: #0056b3;
+         }
+         #result {
+             margin-top: 20px;
+         }
+         #result h2 {
+             font-size: 20px;
+             margin-bottom: 10px;
+             color: #333333;
+         }
+         table {
+             width: 100%;
+             border-collapse: collapse;
+             margin-bottom: 20px;
+         }
+         th, td {
+             border: 1px solid #cccccc;
+             padding: 8px;
+             text-align: center;
+         }
+         th {
+             background-color: #f2f2f2;
+         }
     </style>
 </head>
 <body style="overflow:auto">
@@ -58,58 +132,56 @@
     
     <script>
     function displayWeeklyData(scheduleData, mealData) {
-    const scheduleTable = document.createElement('table');
-    scheduleTable.classList.add('weekly-schedule'); // 표에 클래스 추가
+        const scheduleTable = document.createElement('table');
+        scheduleTable.classList.add('weekly-schedule');
 
-    const days = ['월', '화', '수', '목', '금'];
-    const periods = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시'];
+        const days = ['월', '화', '수', '목', '금'];
+        const periods = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시'];
 
-    // 표 헤더 생성
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    const emptyHeader = document.createElement('th');
-    headerRow.appendChild(emptyHeader);
-    days.forEach(day => {
-        const th = document.createElement('th');
-        th.textContent = day;
-        headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-    scheduleTable.appendChild(thead);
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        const emptyHeader = document.createElement('th');
+        headerRow.appendChild(emptyHeader);
+        days.forEach(day => {
+            const th = document.createElement('th');
+            th.textContent = day;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        scheduleTable.appendChild(thead);
 
-    // 표 내용 생성
-    const tbody = document.createElement('tbody');
-    periods.forEach((period, index) => {
-        const row = document.createElement('tr');
-        const periodCell = document.createElement('th');
-        periodCell.textContent = period;
-        row.appendChild(periodCell);
+        const tbody = document.createElement('tbody');
+        periods.forEach((period, index) => {
+            const row = document.createElement('tr');
+            const periodCell = document.createElement('th');
+            periodCell.textContent = period;
+            row.appendChild(periodCell);
 
-        days.forEach((day, dayIndex) => {
-            const cell = document.createElement('td');
-            const daySchedule = scheduleData.hisTimetable[1].row.filter(item => {
-                const date = item.ALL_TI_YMD;
-                const dayOfWeek = new Date(date.slice(0, 4), date.slice(4, 6) - 1, date.slice(6, 8)).getDay();
-                return dayOfWeek === dayIndex + 1 && item.PERIO === `${index + 1}교시`;
+            days.forEach((day, dayIndex) => {
+                const cell = document.createElement('td');
+                const daySchedule = scheduleData.hisTimetable[1].row.filter(item => {
+                    const date = item.ALL_TI_YMD;
+                    const dayOfWeek = new Date(date.slice(0, 4), date.slice(4, 6) - 1, date.slice(6, 8)).getDay();
+                    return dayOfWeek === dayIndex + 1 && item.PERIO === `${index + 1}교시`;
+                });
+
+                if (daySchedule.length > 0) {
+                    cell.textContent = daySchedule[0].ITRT_CNTNT;
+                } else {
+                    cell.textContent = '';
+                }
+
+                row.appendChild(cell);
             });
 
-            if (daySchedule.length > 0) {
-                cell.textContent = daySchedule[0].ITRT_CNTNT;
-            } else {
-                cell.textContent = '';
-            }
-
-            row.appendChild(cell);
+            tbody.appendChild(row);
         });
 
-        tbody.appendChild(row);
-    });
+        scheduleTable.appendChild(tbody);
 
-    scheduleTable.appendChild(tbody);
-
-    const scheduleDiv = document.getElementById('schedule');
-    scheduleDiv.innerHTML = ''; // 이전 내용 지우기
-    scheduleDiv.appendChild(scheduleTable);
+        const scheduleDiv = document.getElementById('schedule');
+        scheduleDiv.innerHTML = '';
+        scheduleDiv.appendChild(scheduleTable);
     }
     </script>
 </body>
