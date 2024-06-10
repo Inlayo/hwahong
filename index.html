@@ -115,8 +115,8 @@
             <option value="11">11반</option>
             <option value="12">12반</option>
         </select>
-        <button type="button" onclick="fetchData()" class="styled-button">오늘 조회</button>
-        <button type="button" onclick="fetchWeeklyData()" class="styled-button">일주일 조회</button>
+        <button type="button" onclick="fetchData()" class="styled-button">조회</button>
+        <button type="button" onclick="fetchWeeklyData()" class="styled-button">일주일</button>
     </form>
 
     <div id="result">
@@ -197,9 +197,9 @@
 
             const today = new Date();
             const startDate = new Date(today);
-            startDate.setDate(today.getDate() - today.getDay() + 1); // Set to the start of the week (Monday)
+            startDate.setDate(today.getDate() - today.getDay() + 1);
             const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + 4); // Set to the end of the week (Friday)
+            endDate.setDate(startDate.getDate() + 4);
 
             const startYMD = `${startDate.getFullYear()}${('0' + (startDate.getMonth() + 1)).slice(-2)}${('0' + startDate.getDate()).slice(-2)}`;
             const endYMD = `${endDate.getFullYear()}${('0' + (endDate.getMonth() + 1)).slice(-2)}${('0' + endDate.getDate()).slice(-2)}`;
