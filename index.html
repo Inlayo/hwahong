@@ -75,6 +75,19 @@
              margin-bottom: 10px;
              color: #333333;
          }
+         table {
+             width: 100%;
+             border-collapse: collapse;
+             margin-bottom: 20px;
+         }
+         th, td {
+             border: 1px solid #cccccc;
+             padding: 8px;
+             text-align: center;
+         }
+         th {
+             background-color: #f2f2f2;
+         }
     </style>
 </head>
 <body style="overflow:auto">
@@ -108,7 +121,7 @@
 
     <div id="result">
         <h2>시간표</h2>
-        <ul id="schedule"></ul>
+        <div id="schedule"></div>
         <h2>급식표</h2>
         <ul id="meal"></ul>
     </div>
@@ -183,14 +196,10 @@
             localStorage.setItem('class_num', class_num);
 
             const today = new Date();
-            const year = today.getFullYear();
-            const month = ('0' + (today.getMonth() + 1)).slice(-2);
-            const day = ('0' + today.getDate()).slice(-2);
-
             const startDate = new Date(today);
-            startDate.setDate(today.getDate() - today.getDay()); // Set to the start of the week (Sunday)
+            startDate.setDate(today.getDate() - today.getDay() + 1); // Set to the start of the week (Monday)
             const endDate = new Date(startDate);
-            endDate.setDate(startDate.getDate() + 6); // Set to the end of the week (Saturday)
+            endDate.setDate(startDate.getDate() + 4); // Set to the end of the week (Friday)
 
             const startYMD = `${startDate.getFullYear()}${('0' + (startDate.getMonth() + 1)).slice(-2)}${('0' + startDate.getDate()).slice(-2)}`;
             const endYMD = `${endDate.getFullYear()}${('0' + (endDate.getMonth() + 1)).slice(-2)}${('0' + endDate.getDate()).slice(-2)}`;
@@ -261,23 +270,50 @@
 
                 scheduleData.hisTimetable[1].row.forEach(item => {
                     const date = item.ALL_TI_YMD;
-                    if (!weeklySchedule[date]) {
-                        weeklySchedule[date] = [];
+                    const dayOfWeek = new Date(date.slice(0, 4), date.slice(4, 6) - 1, date.slice(6, 8)).getDay();
+                    if (!weeklySchedule[dayOfWeek]) {
+                        weeklySchedule[dayOfWeek] = [];
                     }
-                    weeklySchedule[date].push(`${item.PERIO}교시: ${item.ITRT_CNTNT}`);
+                    weeklySchedule[dayOfWeek].push(`${item.PERIO}교시: ${item.ITRT_CNTNT}`);
                 });
 
-                for (const date in weeklySchedule) {
-                    const dateHeader = document.createElement('h3');
-                    dateHeader.textContent = `${date.slice(0, 4)}년 ${date.slice(4, 6)}월 ${date.slice(6, 8)}일`;
-                    scheduleList.appendChild(dateHeader);
+                const days = ['월', '화', '수', '목', '금'];
+                const periods = ['1교시', '2교시', '3교시', '4교시', '5교시', '6교시', '7교시', '8교시'];
 
-                    weeklySchedule[date].forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = item;
-                        scheduleList.appendChild(li);
-                    });
-                }
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                const headerRow = document.createElement('tr');
+                const emptyHeader = document.createElement('th');
+                headerRow.appendChild(emptyHeader);
+                days.forEach(day => {
+                    const th = document.createElement('th');
+                    th.textContent = day;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                periods.forEach((period, index) => {
+                    const row = document.createElement('tr');
+                    const periodCell = document.createElement('th');
+                    periodCell.textContent = period;
+                    row.appendChild(periodCell);
+
+                    for (let day = 1; day <= 5; day++) {
+                        const cell = document.createElement('td');
+                        const daySchedule = weeklySchedule[day] || [];
+                        const periodSchedule = daySchedule.find(item => item.startsWith(`${index + 1}교시`));
+                        cell.textContent = periodSchedule ? periodSchedule.split(': ')[1] : '';
+                        row.appendChild(cell);
+                    }
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                scheduleList.appendChild(table);
             } else {
                 const li = document.createElement('li');
                 li.textContent = '시간표 정보를 불러올 수 없습니다.';
