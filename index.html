@@ -85,7 +85,7 @@
          }
          th, td {
              border: 1px solid #cccccc;
-             padding: 8px;
+             padding: 4px;
              text-align: center;
          }
          th {
@@ -93,7 +93,7 @@
          }
          @media only screen and (max-width: 600px) {
             table {
-                font-size: 14px;
+                font-size: 12px;
             }
          }
     </style>
@@ -242,7 +242,7 @@
                     const li = document.createElement('li');
                     li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
                     scheduleList.appendChild(li);
-            });
+                });
             } else {
                 const li = document.createElement('li');
                 li.textContent = '시간표 정보가 없다 ㅋ';
@@ -254,10 +254,10 @@
                     const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\s*\([^\)]*\)/g, '').trim();
                     const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '' && /[0-9]+/.test(menu));
                     menus.forEach(menu => {
-                    const li = document.createElement('li');
+                        const li = document.createElement('li');
                         li.textContent = menu;
                         mealList.appendChild(li);
-                });
+                    });
                 });
             } else {
                 const li = document.createElement('li');
@@ -341,20 +341,45 @@
                     weeklyMeals[date].push(...menus);
                 });
 
-                for (const date in weeklyMeals) {
-                    const dateHeader = document.createElement('h3');
-                    dateHeader.textContent = `${date.slice(0, 4)}년 ${date.slice(4, 6)}월 ${date.slice(6, 8)}일`;
-                    mealList.appendChild(dateHeader);
+                const days = ['월', '화', '수', '목', '금'];
 
-                    weeklyMeals[date].forEach(menu => {
-                        const li = document.createElement('li');
-                        li.textContent = menu;
-                        mealList.appendChild(li);
-                    });
+                const table = document.createElement('table');
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                const headerRow = document.createElement('tr');
+                const emptyHeader = document.createElement('th');
+                headerRow.appendChild(emptyHeader);
+                days.forEach(day => {
+                    const th = document.createElement('th');
+                    th.textContent = day;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                const maxRows = Math.max(...Object.values(weeklyMeals).map(menus => menus.length));
+                for (let i = 0; i < maxRows; i++) {
+                    const row = document.createElement('tr');
+                    const periodCell = document.createElement('th');
+                    periodCell.textContent = i === 0 ? '밥' : i === 1 ? '국' : `반찬${i - 1}`;
+                    row.appendChild(periodCell);
+
+                    for (let day = 0; day < 5; day++) {
+                        const cell = document.createElement('td');
+                        const menus = weeklyMeals[Object.keys(weeklyMeals)[day]] || [];
+                        cell.textContent = menus[i] || '';
+                        row.appendChild(cell);
+                    }
+
+                    tbody.appendChild(row);
                 }
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                mealList.appendChild(table);
             } else {
                 const li = document.createElement('li');
-                li.textContent = '시간표 정보가 없다 ㅋ';
+                li.textContent = '급식표 정보가 없다 ㅋ';
                 mealList.appendChild(li);
             }
         }
