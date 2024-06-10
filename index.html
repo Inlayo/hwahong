@@ -18,85 +18,104 @@
             border-radius: 10px;
             overflow-x: auto;
         }
+
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
         }
+
         form {
             margin-bottom: 20px;
         }
-        label, select, button {
+
+        label,select,button {
             margin-right: 10px;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         li {
             margin-bottom: 5px;
         }
+
         .date-display {
             margin-bottom: 20px;
             font-weight: bold;
             color: #666666;
         }
+
         .name {
             font-size: 7px;
             margin-top: 20px;
         }
+
         .styled-select {
-             padding: 8px 16px;
-             border: 1px solid #cccccc;
-             border-radius: 5px;
-             background-color: #ffffff;
-             font-size: 16px;
-             margin-right: 10px;
-             color: #333333;
-         }
-         .styled-button {
-             padding: 8px 16px;
-             border: 1px solid #cccccc;
-             border-radius: 5px;
-             background-color: #0077ff;
-             color: #ffffff;
-             font-size: 16px;
-             margin-right: 10px;
-             cursor: pointer;
-             transition: background-color 0.3s;
-         }
-         .styled-button:hover {
-             background-color: #0056b3;
-         }
-         #result {
-             margin-top: 20px;
-         }
-         #result h2 {
-             font-size: 20px;
-             margin-bottom: 10px;
-             color: #333333;
-         }
-         table {
-             width: 100%;
-             border-collapse: collapse;
-             margin-bottom: 20px;
-             border-radius: 10px;
-             overflow: hidden;
-         }
-         th, td {
-             border: 1px solid #cccccc;
-             padding: 4px;
-             text-align: center;
-         }
-         th {
-             background-color: #f2f2f2;
-         }
-         @media only screen and (max-width: 600px) {
+            padding: 8px 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            font-size: 16px;
+            margin-right: 10px;
+            color: #333333;
+        }
+
+        .styled-button {
+            padding: 8px 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #0077ff;
+            color: #ffffff;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .styled-button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        #result h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* 반대 separate */
+            border-spacing: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th,td {
+            border: 1px solid #cccccc;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        @media only screen and (max-width: 600px) {
             table {
                 font-size: 12px;
             }
-         }
+        }
     </style>
 </head>
+
 <body>
     <h1>화홍고 시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
@@ -132,13 +151,13 @@
         <h2>급식표</h2>
         <div id="meal"></div>
     </div>
-    
+
     <div class="name">
         10217 이한결
     </div>
-    
+
     <script>
-            const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
+        const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
         const EDUCATION_OFFICE_CODE = 'J10';
         const SCHOOL_CODE = '7530479';
 
