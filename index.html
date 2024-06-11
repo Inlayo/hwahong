@@ -16,7 +16,8 @@
             font-family: Arial, sans-serif;
             padding: 20px;
             border-radius: 10px;
-            overflow: auto;
+            overflow-x: hidden:auto;
+            overflow-y: hidden:auto;
         }
 
         h1 {
@@ -30,6 +31,7 @@
 
         label,select,button {
             margin-right: 10px;
+            color: #666666;
         }
 
         div {
@@ -80,7 +82,7 @@
         }
 
         .styled-button:hover {
-            background-color: #00ff66;
+            background-color: #f49044;
         }
 
         #result {
@@ -109,17 +111,10 @@
         th {
             background-color: #f2f2f2;
         }
-
-        @media only screen and (max-width: 600px) {
-            table {
-                font-size: 12px;
-            }
-        }
     </style>
 </head>
-
 <body>
-    <h1>이름 안정함</h1>
+    <h1>시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
         <label for="grade">학년:</label>
