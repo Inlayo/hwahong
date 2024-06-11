@@ -10,7 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="10217 이한결">
     <meta property="og:locale" content="ko_KR">
-    <meta name="viewport" content="width=100, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대충 만드는 화홍고 시간표 및 급식표</title>
     <style>
         body {
@@ -18,7 +18,8 @@
             padding: 20px;
             border-radius: 10px;
             overflow-x: hidden;
-            overflow-y: hidden;
+            overflow-y: auto;
+            font-size: 16px;
         }
 
         h1 {
@@ -26,13 +27,25 @@
             margin-bottom: 20px;
         }
 
-        form {
-            margin-bottom: 20px;
-        }
-
-        label, select, button {
+        .form-element {
             margin-right: 5px;
             color: #666666;
+        }
+
+        .form-button {
+            padding: 8px 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #0066ff;
+            color: #ffffff;
+            font-size: 16px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-button:hover {
+            background-color: #f49044;
         }
 
         div {
@@ -67,32 +80,6 @@
             background-color: #ffffff;
             font-size: 16px;
             margin-right: 5px;
-            color: #333333;
-        }
-
-        .styled-button {
-            padding: 8px 16px;
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            background-color: #0066ff;
-            color: #ffffff;
-            font-size: 16px;
-            margin-right: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .styled-button:hover {
-            background-color: #f49044;
-        }
-
-        #result {
-            margin-top: 20px;
-        }
-
-        #result h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
             color: #333333;
         }
 
@@ -131,13 +118,13 @@
     <h1>시간표 및 급식표</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
-        <label for="grade">학년:</label>
+        <label for="grade" class="form-element">학년:</label>
         <select id="grade" class="styled-select">
             <option value="1">1학년</option>
             <option value="2">2학년</option>
             <option value="3">3학년</option>
         </select>
-        <label for="class_num">반:</label>
+        <label for="class_num" class="form-element">반:</label>
         <select id="class_num" class="styled-select">
             <option value="1">1반</option>
             <option value="2">2반</option>
@@ -152,8 +139,8 @@
             <option value="11">11반</option>
             <option value="12">12반</option>
         </select>
-        <button type="button" onclick="fetchData()" class="styled-button">오늘</button>
-        <button type="button" onclick="fetchWeeklyData()" class="styled-button">전체</button>
+        <button type="button" onclick="fetchData()" class="form-button">오늘</button>
+        <button type="button" onclick="fetchWeeklyData()" class="form-button">전체</button>
     </form>
 
     <div id="result">
@@ -211,13 +198,10 @@
             const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
 
             try {
-                const [scheduleResponse, mealResponse] = await Promise.all([
-                    fetch(scheduleUrl),
-                    fetch(mealUrl)
+                const [scheduleData, mealData] = await Promise.all([
+                    fetchDataInternal(scheduleUrl),
+                    fetchDataInternal(mealUrl)
                 ]);
-
-                const scheduleData = await scheduleResponse.json();
-                const mealData = await mealResponse.json();
 
                 displayData(scheduleData, mealData);
             } catch (error) {
@@ -245,17 +229,27 @@
             const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_FROM_YMD=${startYMD}&MLSV_TO_YMD=${endYMD}`;
 
             try {
-                const [scheduleResponse, mealResponse] = await Promise.all([
-                    fetch(scheduleUrl),
-                    fetch(mealUrl)
+                const [scheduleData, mealData] = await Promise.all([
+                    fetchDataInternal(scheduleUrl),
+                    fetchDataInternal(mealUrl)
                 ]);
-
-                const scheduleData = await scheduleResponse.json();
-                const mealData = await mealResponse.json();
 
                 displayWeeklyData(scheduleData, mealData);
             } catch (error) {
                 console.error('Error fetching data:', error);
+            }
+        }
+
+        async function fetchDataInternal(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                throw error;
             }
         }
 
