@@ -14,7 +14,8 @@
     <link rel="icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Orbit&Do+Hyeon&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Orbit&display=swap"
+        rel="stylesheet">
 
     <title>화홍고 시간표 및 급식</title>
     <style>
@@ -61,7 +62,7 @@
         }
 
         .form-button {
-            font-family: "Do Hyeon", sans-serif;
+            font-family: "jua", sans-serif;
             padding: 4px 9px;
             border: 1px solid #cccccc;
             border-radius: 5px;
@@ -102,8 +103,8 @@
         }
 
         .name {
-            font-family: "Jua", sans-serif;
-            font-size: 8px;
+            font-family: "Do Hyeon", sans-serif;
+            font-size: 12px;
             margin: 20px;
         }
 
@@ -463,7 +464,7 @@
                 for (let i = 0; i < maxRows; i++) {
                     const row = document.createElement('tr');
                     const periodCell = document.createElement('th');
-                    periodCell.textContent = i === 0 ? '밥' : i === 1 ? '국' : `반찬${i - 1}`;
+                    periodCell.textContent = i === 0 ? '밥' : i === 1 ? '국' : `기타`;
                     row.appendChild(periodCell);
 
                     for (let day = 0; day < 5; day++) {
