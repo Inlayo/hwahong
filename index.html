@@ -360,7 +360,7 @@
 
             if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
                 mealData.mealServiceDietInfo[1].row.forEach(item => {
-                    const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\(\d+[,\d]*\)/g, '').trim();
+                    const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\((?=\d+\.\d+)[^)]*\)/g, '').replace(/\(\d+\)/g, '').trim();
                     const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '');
                     menus.forEach(menu => {
                         const li = document.createElement('li');
@@ -445,7 +445,7 @@
                     if (!weeklyMeals[date]) {
                         weeklyMeals[date] = [];
                     }
-                    const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\(\d+[,\d]*\)/g, '').trim();
+                    const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, '\n').replace(/\((?=\d+\.\d+)[^)]*\)/g, '').replace(/\(\d+\)/g, '').trim();
                     const menus = cleanMenu.split('\n').filter(menu => menu.trim() !== '');
                     weeklyMeals[date].push(...menus);
                 });
