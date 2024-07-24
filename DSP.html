@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>데일리 스터디 플레너</title>
     <style>
-        /* styles.css */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -138,9 +138,30 @@
             outline: none;
             border-color: #007bff;
         }
+
+        .form-button {
+            font-family: "jua", sans-serif;
+            padding: 4px 9px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #0066ff;
+            color: #ffffff;
+            font-size: 16px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .form-button:hover {
+            background-color: #f49044;
+        }
     </style>
 </head>
+
 <body>
+    <button class="form-button" onclick="navigateToDSP()">시간표로 돌아가기</button>
     <div class="container">
         <header>
             <h1>Daily Study Planner - 2024</h1>
@@ -155,7 +176,6 @@
                 <div class="schedule">
                     <div class="schedule-header">시간 계획</div>
                     <div class="time-table">
-                        <!-- 오전 12시부터 오후 12시까지 시간 계획 테이블 -->
                         <div class="time-row" data-hour="0">
                             <div class="time">12 AM</div>
                             <div class="plan" contenteditable="true"></div>
@@ -213,7 +233,6 @@
                 <div class="tasks">
                     <div class="tasks-header">할 일</div>
                     <div class="task-list">
-                        <!-- 할 일 목록 -->
                         <div class="task" contenteditable="true"></div>
                         <div class="task" contenteditable="true"></div>
                         <div class="task" contenteditable="true"></div>
@@ -236,7 +255,6 @@
         </main>
     </div>
     <script>
-        // script.js
         const dateDisplay = document.getElementById('date-display');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
@@ -289,4 +307,5 @@
         });
     </script>
 </body>
+
 </html>
