@@ -192,6 +192,26 @@
             color: #99eeff;
             text-decoration: none;
         }
+
+        .nav-button {
+            display: block;
+            width: 120px;
+            padding: 10px;
+            margin: 20px auto;
+            text-align: center;
+            font-family: "Jua", sans-serif;
+            font-size: 16px;
+            background-color: #0066ff;
+            color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #f49044;
+        }
     </style>
 </head>
 
@@ -239,6 +259,8 @@
     <div class="name">
         10217 이한결
     </div>
+
+    <button class="nav-button" onclick="navigateToDSP()">데일리 스터디 플레너</button>
 
     <script>
         const API_KEY = '34ff04d810454575a10ccfad4024f3b7';
@@ -492,6 +514,10 @@
                 mealList.appendChild(li);
             }
         }
+        function navigateToDSP() {
+            window.location.href = 'DSP.html';
+        }
+        document.addEventListener('DOMContentLoaded', displayCurrentDate);
     </script>
 </body>
 
