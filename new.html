@@ -248,7 +248,7 @@
             if (timetableData?.hisTimetable) {
                 timetableData.hisTimetable[1].row.forEach(item => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${item.ORD_NM}</td><td>${item.SUBJECT_NM}</td>`;
+                    row.innerHTML = `<td>${item.PERIO}</td><td>${item.ITRT_CNTNT}</td>`;
                     scheduleTable.appendChild(row);
                 });
             }
