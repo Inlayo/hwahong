@@ -1,3 +1,3 @@
 old : https://hwahong.pages.dev
 
-new : https://hwahong.p-e.kr
+new : http://hwahong.p-e.kr
