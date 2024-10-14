@@ -41,16 +41,17 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* 시간표 테이블 */
         table {
-            width: 100%;
+            width: 80%; /* 폭을 줄임 */
+            margin: 20px auto; /* 중앙 정렬 */
             border-collapse: collapse;
-            margin: 20px 0;
         }
 
         th,
         td {
             padding: 10px;
-            text-align: left;
+            text-align: center; /* 중앙 정렬 */
             border: 1px solid #ddd;
         }
 
@@ -68,14 +69,15 @@
             background-color: #2980b9;
         }
 
-        /* 세로 정렬된 급식 */
+        /* 급식 박스 */
         #meal {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            margin: 20px;
+            margin: 20px auto; /* 중앙 정렬 */
             padding: 20px;
+            width: 25%; /* 폭을 쿼터 크기로 줄임 */
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -85,7 +87,6 @@
         #meal p {
             margin: 5px 0;
             text-align: center;
-            /* 중앙 정렬 */
         }
 
         /* 모바일 친화적 디자인 */
@@ -236,42 +237,42 @@
                 .trim();                         // 양쪽 공백 제거
         }
 
-        // 데이터를 화면에 출력
+        // 시간표와 급식 데이터 출력
         function displayData(timetableData, mealData) {
             const scheduleTable = document.getElementById('schedule');
             const mealDiv = document.getElementById('meal');
-
             scheduleTable.innerHTML = '';
             mealDiv.innerHTML = '';
 
-            // 시간표 표시
+            // 시간표 출력
             if (timetableData?.hisTimetable) {
-                timetableData.hisTimetable[1].row.forEach(item => {
+                timetableData.hisTimetable[1].row.forEach(period => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${item.PERIO}</td><td>${item.ITRT_CNTNT}</td>`;
+                    row.innerHTML = `<td>${period.PERIO}</td><td>${period.ITRT_CNTNT}</td>`;
                     scheduleTable.appendChild(row);
                 });
+            } else {
+                scheduleTable.innerHTML = '<tr><td colspan="2">오늘의 시간표가 없습니다.</td></tr>';
             }
 
-            // 급식 정보 표시
+            // 급식 출력
             if (mealData?.mealServiceDietInfo) {
-                const meals = mealData.mealServiceDietInfo[1].row;
-                if (meals.length > 0) {
-                    const mealContent = meals.map(meal => `<p>${cleanMealData(meal.DDISH_NM)}</p>`).join('');
-                    mealDiv.innerHTML = mealContent;
-                } else {
-                    mealDiv.innerHTML = '<p>오늘 급식 정보가 없습니다.</p>';
-                }
+                const meals = mealData.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>').map(cleanMealData);
+                meals.forEach(meal => {
+                    const p = document.createElement('p');
+                    p.textContent = meal;
+                    mealDiv.appendChild(p);
+                });
             } else {
-                mealDiv.innerHTML = '<p>오늘 급식 정보가 없습니다.</p>';
+                mealDiv.textContent = '오늘의 급식이 없습니다.';
             }
         }
 
-        // 초기화 및 이벤트 리스너 설정
-        document.addEventListener('DOMContentLoaded', () => {
-            populateGradeClass();
-            document.getElementById('today-btn').addEventListener('click', fetchTodayData);
-        });
+        // 이벤트 리스너
+        document.getElementById('today-btn').addEventListener('click', fetchTodayData);
+
+        // 학년/반 목록 불러오기
+        populateGradeClass();
     </script>
 </body>
 
