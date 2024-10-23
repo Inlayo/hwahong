@@ -203,6 +203,9 @@
     <button class="form-button" onclick="navigateToDSP()">
       데일리 스터디 플레너
     </button>
+    <button class="form-button" onclick="navigateToNEW()">
+      새로운 버전
+    </button>
     <h1>시간표 및 급식</h1>
     <div id="current-date" class="date-display"></div>
     <form id="schedule-form">
@@ -544,6 +547,9 @@
       }
       function navigateToDSP() {
         window.location.href = "DSP.html";
+      }
+      function navigateToNEW() {
+        window.location.href = "NEW.html";
       }
       document.addEventListener("DOMContentLoaded", displayCurrentDate);
     </script>
