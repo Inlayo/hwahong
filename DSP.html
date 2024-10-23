@@ -355,7 +355,7 @@
           dayCell.classList.add("calendar-day");
           dayCell.addEventListener("click", () => {
             currentDate.setDate(day);
-            navigateToDSP();
+            navigateToDSP(); //이부분이 잘못된것 같아 그 날자의 스케줄러로 이동해야해
           });
           calendarGrid.appendChild(dayCell);
         }
@@ -373,7 +373,7 @@
       });
 
       function navigateToDSP() {
-        window.location.href = "DSP.html";
+        window.location.href = "index.html";
       }
     </script>
   </body>
