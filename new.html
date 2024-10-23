@@ -1,278 +1,299 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:image" content="https://hwahong.pages.dev/previewimage.png" />
+    <meta
+      property="og:image"
+      content="https://hwahong.pages.dev/previewimage.png"
+    />
     <meta property="og:url" content="https://hwahong.p-e.kr" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="https://hwahong.pages.dev/favicon.ico" />
     <title>화홍고 급식표 및 시간표</title>
-    
+
     <style>
-        body {
-            font-family: "Noto Sans KR", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+      }
 
-        h1,
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-        }
+      h1,
+      h2 {
+        color: #2c3e50;
+        text-align: center;
+      }
 
-        #clock {
-            text-align: center;
-            font-size: 1.2em;
-            margin: 10px;
-        }
+      #clock {
+        text-align: center;
+        font-size: 1.2em;
+        margin: 10px;
+      }
 
+      form {
+        width: 50%;
+        max-width: 500px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* 시간표 테이블 */
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+
+      button {
+        background-color: #3498db;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      /* 급식 박스 */
+      #meal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 20px;
+        width: 50%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      #meal p {
+        margin: 5px 0;
+        text-align: center;
+      }
+
+      /* 모바일 친화적 디자인 */
+      @media (max-width: 600px) {
         form {
-            width: 50%;
-            max-width: 500px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 15px;
         }
 
-        /* 시간표 테이블 */
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
+        table,
         th,
         td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
+          font-size: 14px;
         }
+      }
 
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+      /* 컴퓨터에서 화면을 가운데 박스 형태로 배치 */
+      @media (min-width: 601px) {
+        #container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #fff;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
         }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        /* 급식 박스 */
-        #meal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 20px auto;
-            padding: 20px;
-            width: 50%;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #meal p {
-            margin: 5px 0;
-            text-align: center;
-        }
-
-        /* 모바일 친화적 디자인 */
-        @media (max-width: 600px) {
-            form {
-                padding: 15px;
-            }
-
-            table,
-            th,
-            td {
-                font-size: 14px;
-            }
-        }
-
-        /* 컴퓨터에서 화면을 가운데 박스 형태로 배치 */
-        @media (min-width: 601px) {
-            #container {
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <h1>화홍고 급식표 및 시간표</h1>
+      <h1>화홍고 급식표 및 시간표</h1>
 
-        <!-- 시계 -->
-        <div id="clock"></div>
+      <!-- 시계 -->
+      <div id="clock"></div>
 
-        <!-- 학년과 반 선택 -->
-        <form id="schedule-form">
-            <label for="grade">학년:</label>
-            <select id="grade">
-                <!-- 학년은 API에서 동적으로 불러와서 오름차순으로 정렬됨 -->
-            </select>
+      <!-- 학년과 반 선택 -->
+      <form id="schedule-form">
+        <label for="grade">학년:</label>
+        <select id="grade">
+          <!-- 학년은 API에서 동적으로 불러와서 오름차순으로 정렬됨 -->
+        </select>
 
-            <label for="class_num">반:</label>
-            <select id="class_num">
-                <!-- 반은 API에서 동적으로 불러와서 오름차순으로 정렬됨 -->
-            </select>
+        <label for="class_num">반:</label>
+        <select id="class_num">
+          <!-- 반은 API에서 동적으로 불러와서 오름차순으로 정렬됨 -->
+        </select>
 
-            <button type="button" id="today-btn">확인</button>
-        </form>
+        <button type="button" id="today-btn">확인</button>
+      </form>
 
-        <!-- 결과 영역 -->
-        <div id="result">
-            <h2>오늘의 시간표</h2>
-            <table id="schedule-table">
-                <thead>
-                    <tr>
-                        <th>교시</th>
-                        <th>과목명</th>
-                    </tr>
-                </thead>
-                <tbody id="schedule"></tbody>
-            </table>
+      <!-- 결과 영역 -->
+      <div id="result">
+        <h2>오늘의 시간표</h2>
+        <table id="schedule-table">
+          <thead>
+            <tr>
+              <th>교시</th>
+              <th>과목명</th>
+            </tr>
+          </thead>
+          <tbody id="schedule"></tbody>
+        </table>
 
-            <h2>오늘의 급식</h2>
-            <div id="meal"></div>
-        </div>
+        <h2>오늘의 급식</h2>
+        <div id="meal"></div>
+      </div>
     </div>
 
     <!-- 자바스크립트 -->
     <script>
-        // 필수 정보
-        const apiKey = '34ff04d810454575a10ccfad4024f3b7';
-        const eduOfficeCode = 'J10'; // 교육청 코드
-        const schoolCode = '7530479'; // 학교 코드
+      const apiKey = "34ff04d810454575a10ccfad4024f3b7";
+      const eduOfficeCode = "J10";
+      const schoolCode = "7530479";
 
-        // 실시간 시계
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('clock').innerText =
-                `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 ${now.getHours()}시 ${now.getMinutes()}분 ${now.getSeconds()}초`;
-        }, 1000);
+      // 시계
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById("clock").innerText = `${now.getFullYear()}년 ${
+          now.getMonth() + 1
+        }월 ${now.getDate()}일 ${now.getHours()}시 ${now.getMinutes()}분 ${now.getSeconds()}초`;
+      }, 1000);
 
-        // API 호출 함수
-        async function fetchAPI(url) {
-            const response = await fetch(url);
-            return response.ok ? response.json() : null;
+      // API 호출
+      async function fetchAPI(url) {
+        const response = await fetch(url);
+        return response.ok ? response.json() : null;
+      }
+
+      // 학년과 반 불러오기 및 정렬
+      async function populateGradeClass() {
+        const response = await fetchAPI(
+          `https://open.neis.go.kr/hub/classInfo?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&Type=json`
+        );
+
+        if (response?.classInfo) {
+          const gradeSelect = document.getElementById("grade");
+          const classSelect = document.getElementById("class_num");
+
+          // 학년 데이터를 오름차순으로 정렬
+          const grades = [
+            ...new Set(response.classInfo[1].row.map((data) => data.GRADE)),
+          ].sort((a, b) => parseInt(a) - parseInt(b));
+          grades.forEach((grade) => {
+            const option = document.createElement("option");
+            option.value = grade;
+            option.textContent = `${grade}학년`;
+            gradeSelect.appendChild(option);
+          });
+
+          // 학년 변경 시 반 옵션을 업데이트
+          gradeSelect.addEventListener("change", () => {
+            const selectedGrade = gradeSelect.value;
+            classSelect.innerHTML = ""; // 기존 반 옵션 초기화
+            const classes = response.classInfo[1].row.filter(
+              (data) => data.GRADE === selectedGrade
+            );
+            const uniqueClasses = [
+              ...new Set(classes.map((cls) => cls.CLASS_NM)),
+            ]; // 중복된 반 제거
+            const sortedClasses = uniqueClasses.sort(
+              (a, b) => parseInt(a) - parseInt(b)
+            ); // 반을 오름차순으로 정렬
+            sortedClasses.forEach((cls) => {
+              const option = document.createElement("option");
+              option.value = cls;
+              option.textContent = `${cls}반`;
+              classSelect.appendChild(option);
+            });
+          });
+
+          // 기본 학년과 반 설정
+          gradeSelect.dispatchEvent(new Event("change"));
+        }
+      }
+
+      // 오늘의 시간표와 급식 정보 가져오기
+      async function fetchTodayData() {
+        const grade = document.getElementById("grade").value;
+        const classNum = document.getElementById("class_num").value;
+        const today = new Date().toISOString().slice(0, 10).replace(/-/g, ""); // 오늘 날짜
+
+        const [timetableData, mealData] = await Promise.all([
+          fetchAPI(
+            `https://open.neis.go.kr/hub/hisTimetable?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&GRADE=${grade}&CLASS_NM=${classNum}&TI_FROM_YMD=${today}&TI_TO_YMD=${today}&Type=json`
+          ),
+          fetchAPI(
+            `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_YMD=${today}&Type=json`
+          ),
+        ]);
+
+        displayData(timetableData, mealData);
+      }
+
+      // 데이터에서 특수문자와 괄호 처리
+      function cleanMealData(meal) {
+        // 괄호 안의 숫자 및 쉼표 삭제, 특수문자 제거
+        return meal
+          .replace(/\s*\(.*?\)\s*/g, "") // 괄호 및 괄호 안 내용 삭제
+          .replace(/[,.`~^!*@#]/g, "") // 특정 특수 문자 제거
+          .replace(/\s+/g, " ") // 여러 공백을 하나로
+          .trim(); // 양쪽 공백 제거
+      }
+
+      // 시간표와 급식 데이터 출력
+      function displayData(timetableData, mealData) {
+        const scheduleTable = document.getElementById("schedule");
+        const mealDiv = document.getElementById("meal");
+        scheduleTable.innerHTML = "";
+        mealDiv.innerHTML = "";
+
+        // 시간표 출력
+        if (timetableData?.hisTimetable) {
+          timetableData.hisTimetable[1].row.forEach((period) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${period.PERIO}</td><td>${period.ITRT_CNTNT}</td>`;
+            scheduleTable.appendChild(row);
+          });
+        } else {
+          scheduleTable.innerHTML =
+            '<tr><td colspan="2">오늘의 시간표가 없습니다.</td></tr>';
         }
 
-        // 학년과 반 동적으로 불러오기 및 정렬
-        async function populateGradeClass() {
-            const response = await fetchAPI(`https://open.neis.go.kr/hub/classInfo?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&Type=json`);
-
-            if (response?.classInfo) {
-                const gradeSelect = document.getElementById('grade');
-                const classSelect = document.getElementById('class_num');
-
-                // 학년 데이터를 오름차순으로 정렬 및 두 자리수로 변환
-                const grades = [...new Set(response.classInfo[1].row.map(data => data.GRADE))].sort((a, b) => parseInt(a) - parseInt(b));
-                grades.forEach(grade => {
-                    const option = document.createElement('option');
-                    option.value = grade;
-                    option.textContent = `${grade}학년`;
-                    gradeSelect.appendChild(option);
-                });
-
-                // 학년 변경 시 반 옵션을 업데이트
-                gradeSelect.addEventListener('change', () => {
-                    const selectedGrade = gradeSelect.value;
-                    classSelect.innerHTML = ''; // 기존 반 옵션 초기화
-                    const classes = response.classInfo[1].row.filter(data => data.GRADE === selectedGrade);
-                    const uniqueClasses = [...new Set(classes.map(cls => cls.CLASS_NM))]; // 중복된 반 제거
-                    const sortedClasses = uniqueClasses.sort((a, b) => parseInt(a) - parseInt(b)); // 반을 오름차순으로 정렬
-                    sortedClasses.forEach(cls => {
-                        const option = document.createElement('option');
-                        option.value = cls;
-                        option.textContent = `${cls}반`;
-                        classSelect.appendChild(option);
-                    });
-                });
-
-                // 기본 학년과 반 설정
-                gradeSelect.dispatchEvent(new Event('change'));
-            }
+        // 급식 출력
+        if (mealData?.mealServiceDietInfo) {
+          const meals =
+            mealData.mealServiceDietInfo[1].row[0].DDISH_NM.split("<br/>").map(
+              cleanMealData
+            );
+          meals.forEach((meal) => {
+            const p = document.createElement("p");
+            p.textContent = meal;
+            mealDiv.appendChild(p);
+          });
+        } else {
+          mealDiv.textContent = "오늘의 급식이 없습니다.";
         }
+      }
 
-        // 오늘의 시간표와 급식 정보 가져오기
-        async function fetchTodayData() {
-            const grade = document.getElementById('grade').value;
-            const classNum = document.getElementById('class_num').value;
-            const today = new Date().toISOString().slice(0, 10).replace(/-/g, ''); // 오늘 날짜
+      // 이벤트 리스너
+      document
+        .getElementById("today-btn")
+        .addEventListener("click", fetchTodayData);
 
-            const [timetableData, mealData] = await Promise.all([
-                fetchAPI(`https://open.neis.go.kr/hub/hisTimetable?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&GRADE=${grade}&CLASS_NM=${classNum}&TI_FROM_YMD=${today}&TI_TO_YMD=${today}&Type=json`),
-                fetchAPI(`https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${apiKey}&ATPT_OFCDC_SC_CODE=${eduOfficeCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_YMD=${today}&Type=json`)
-            ]);
-
-            displayData(timetableData, mealData);
-        }
-
-        // 데이터에서 특수문자와 괄호 처리
-        function cleanMealData(meal) {
-            // 괄호 안의 숫자 및 쉼표 삭제, 특수문자 제거
-            return meal
-                .replace(/\s*\(.*?\)\s*/g, '')  // 괄호 및 괄호 안 내용 삭제
-                .replace(/[,.`~^!*@#]/g, '')     // 특정 특수 문자 제거
-                .replace(/\s+/g, ' ')            // 여러 공백을 하나로
-                .trim();                         // 양쪽 공백 제거
-        }
-
-        // 시간표와 급식 데이터 출력
-        function displayData(timetableData, mealData) {
-            const scheduleTable = document.getElementById('schedule');
-            const mealDiv = document.getElementById('meal');
-            scheduleTable.innerHTML = '';
-            mealDiv.innerHTML = '';
-
-            // 시간표 출력
-            if (timetableData?.hisTimetable) {
-                timetableData.hisTimetable[1].row.forEach(period => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${period.PERIO}</td><td>${period.ITRT_CNTNT}</td>`;
-                    scheduleTable.appendChild(row);
-                });
-            } else {
-                scheduleTable.innerHTML = '<tr><td colspan="2">오늘의 시간표가 없습니다.</td></tr>';
-            }
-
-            // 급식 출력
-            if (mealData?.mealServiceDietInfo) {
-                const meals = mealData.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>').map(cleanMealData);
-                meals.forEach(meal => {
-                    const p = document.createElement('p');
-                    p.textContent = meal;
-                    mealDiv.appendChild(p);
-                });
-            } else {
-                mealDiv.textContent = '오늘의 급식이 없습니다.';
-            }
-        }
-
-        // 이벤트 리스너
-        document.getElementById('today-btn').addEventListener('click', fetchTodayData);
-
-        // 학년/반 목록 불러오기
-        populateGradeClass();
+      // 학년/반 목록 불러오기
+      populateGradeClass();
     </script>
-</body>
-
+  </body>
 </html>
