@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Orbit&display=swap"
       rel="stylesheet"
     />
 
@@ -25,8 +25,7 @@
     <style>
       body {
         background-color: #fefefe;
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: Arial, sans-serif;
         padding: 0px;
         border-radius: 0px;
         overflow-x: hidden;
@@ -34,16 +33,36 @@
         font-size: 16px;
       }
 
-      .gowun-dodum-regular {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+      .noto-sans-kr-regular {
+        font-family: "Noto Sans KR", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .orbit-regular {
+        font-family: "Orbit", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .jua-regular {
+        font-family: "Jua", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .do-hyeon-regular {
+        font-family: "Do Hyeon", sans-serif;
+        font-optical-sizing: auto;
         font-weight: 400;
         font-style: normal;
       }
 
       h1 {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Jua", sans-serif;
         font-size: 24px;
         margin-left: 5px;
         margin-bottom: 0%;
@@ -51,8 +70,7 @@
       }
 
       .form-element {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Orbit", sans-serif;
         margin-right: 0%;
         margin-left: 0%;
         color: #666666;
@@ -61,8 +79,7 @@
       }
 
       .form-button {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Noto Sans KR", sans-serif;
         padding: 4px 9px;
         border: 1px solid #cccccc;
         border-radius: 5px;
@@ -81,8 +98,7 @@
       }
 
       .styled-select {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Do Hyeon", sans-serif;
         padding: 4px;
         border: 1px solid #cccccc;
         border-radius: 5px;
@@ -94,8 +110,7 @@
       }
 
       div {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Noto Sans KR", sans-serif;
         list-style-type: none;
         padding-left: 5px;
       }
@@ -110,7 +125,7 @@
       }
 
       .date-display {
-        font-family: "Gowun Dodum", sans-serif;
+        font-family: "Orbit", sans-serif;
         font-weight: bold;
         color: #666666;
         padding-left: 15px;
@@ -118,16 +133,15 @@
       }
 
       .name {
-        font-family: "Gowun Dodum", sans-serif;
-        font-weight: bold;
+        font-family: "Do Hyeon", sans-serif;
         font-size: 12px;
         margin: 20px;
         padding-left: 15px;
       }
 
       table {
-        width: 20080206%; /* 한결이 생일 */
-        height: 20081206%; /* 은찬이 생일 */
+        width: 20080206%;
+        height: 20080206%;
         max-width: 500px;
         max-height: 500px;
         border-collapse: separate;
@@ -169,7 +183,7 @@
         padding-left: 5px;
         padding-right: 5px;
         padding-top: 10px;
-        font-family: "Gowun Dodum", sans-serif;
+        font-family: "Orbit", sans-serif;
         font-size: 15px;
       }
 
@@ -281,47 +295,271 @@
 
       async function fetchData() {
         const grade = document.getElementById("grade").value;
-        const classNum = document.getElementById("class_num").value;
+        const class_num = document.getElementById("class_num").value;
 
         localStorage.setItem("grade", grade);
-        localStorage.setItem("class_num", classNum);
+        localStorage.setItem("class_num", class_num);
 
-        const url = `https://open.neis.go.kr/hub/hisTimetable?ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&AY=2024&ALL_TI_YMD=20240415&GRADE=${grade}&CLASS_NM=${classNum}&KEY=${API_KEY}&Type=json`;
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = ("0" + (today.getMonth() + 1)).slice(-2);
+        const day = ("0" + today.getDate()).slice(-2);
+
+        const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${year}${month}${day}&GRADE=${grade}&CLASS_NM=${class_num}`;
+        const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
 
         try {
-          const response = await fetch(url);
-          const data = await response.json();
+          const [scheduleData, mealData] = await Promise.all([
+            fetchDataInternal(scheduleUrl),
+            fetchDataInternal(mealUrl),
+          ]);
 
-          let timetableHtml = "<table><tr><th>교시</th><th>과목</th></tr>";
-
-          if (data.hisTimetable && data.hisTimetable.length > 0) {
-            data.hisTimetable[1].row.forEach((item) => {
-              timetableHtml += `<tr><td>${item.PERIO}</td><td>${item.ITRT_CNTNT}</td></tr>`;
-            });
-          } else {
-            timetableHtml +=
-              "<tr><td colspan='2'>시간표 정보가 없습니다.</td></tr>";
-          }
-
-          timetableHtml += "</table>";
-          document.getElementById("schedule").innerHTML = timetableHtml;
+          displayData(scheduleData, mealData);
         } catch (error) {
-          document.getElementById("schedule").innerHTML =
-            "시간표 정보를 불러오는 중 오류가 발생했습니다.";
+          console.error("Error fetching data:", error);
         }
       }
 
       async function fetchWeeklyData() {
-        // 주간 시간표 불러오는 기능
+        const grade = document.getElementById("grade").value;
+        const class_num = document.getElementById("class_num").value;
+
+        localStorage.setItem("grade", grade);
+        localStorage.setItem("class_num", class_num);
+
+        const today = new Date();
+        const startDate = new Date(today);
+        startDate.setDate(today.getDate() - today.getDay() + 1);
+        const endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 4);
+
+        const startYMD = `${startDate.getFullYear()}${(
+          "0" +
+          (startDate.getMonth() + 1)
+        ).slice(-2)}${("0" + startDate.getDate()).slice(-2)}`;
+        const endYMD = `${endDate.getFullYear()}${(
+          "0" +
+          (endDate.getMonth() + 1)
+        ).slice(-2)}${("0" + endDate.getDate()).slice(-2)}`;
+
+        const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&TI_FROM_YMD=${startYMD}&TI_TO_YMD=${endYMD}&GRADE=${grade}&CLASS_NM=${class_num}`;
+        const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_FROM_YMD=${startYMD}&MLSV_TO_YMD=${endYMD}`;
+
+        try {
+          const [scheduleData, mealData] = await Promise.all([
+            fetchDataInternal(scheduleUrl),
+            fetchDataInternal(mealUrl),
+          ]);
+
+          displayWeeklyData(scheduleData, mealData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
 
+      async function fetchDataInternal(url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return await response.json();
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          throw error;
+        }
+      }
+
+      function displayData(scheduleData, mealData) {
+        const scheduleList = document.getElementById("schedule");
+        const mealList = document.getElementById("meal");
+
+        scheduleList.innerHTML = "";
+        mealList.innerHTML = "";
+
+        if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
+          scheduleData.hisTimetable[1].row.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
+            scheduleList.appendChild(li);
+          });
+        } else {
+          const li = document.createElement("li");
+          li.textContent = "고치는중...";
+          scheduleList.appendChild(li);
+        }
+
+        if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
+          mealData.mealServiceDietInfo[1].row.forEach((item) => {
+            const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
+              .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
+              .replace(/\(\d+\)/g, "")
+              .trim();
+            const menus = cleanMenu
+              .split("\n")
+              .filter((menu) => menu.trim() !== "");
+            menus.forEach((menu) => {
+              const li = document.createElement("li");
+              li.textContent = menu;
+              mealList.appendChild(li);
+            });
+          });
+        } else {
+          const li = document.createElement("li");
+          li.textContent = "급식표 정보가 없다 ㅋ";
+          mealList.appendChild(li);
+        }
+      }
+
+      function displayWeeklyData(scheduleData, mealData) {
+        const scheduleList = document.getElementById("schedule");
+        const mealList = document.getElementById("meal");
+
+        scheduleList.innerHTML = "";
+        mealList.innerHTML = "";
+
+        if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
+          const weeklySchedule = {};
+
+          scheduleData.hisTimetable[1].row.forEach((item) => {
+            const date = item.ALL_TI_YMD;
+            const dayOfWeek = new Date(
+              date.slice(0, 4),
+              date.slice(4, 6) - 1,
+              date.slice(6, 8)
+            ).getDay();
+            if (!weeklySchedule[dayOfWeek]) {
+              weeklySchedule[dayOfWeek] = [];
+            }
+            weeklySchedule[dayOfWeek].push(
+              `${item.PERIO}교시: ${item.ITRT_CNTNT}`
+            );
+          });
+
+          const days = ["월", "화", "수", "목", "금"];
+          const periods = [
+            "1교시",
+            "2교시",
+            "3교시",
+            "4교시",
+            "5교시",
+            "6교시",
+            "7교시",
+          ];
+
+          const table = document.createElement("table");
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
+
+          const headerRow = document.createElement("tr");
+          const emptyHeader = document.createElement("th");
+          headerRow.appendChild(emptyHeader);
+          days.forEach((day) => {
+            const th = document.createElement("th");
+            th.textContent = day;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          periods.forEach((period, index) => {
+            const row = document.createElement("tr");
+            const periodCell = document.createElement("th");
+            periodCell.textContent = period;
+            row.appendChild(periodCell);
+
+            for (let day = 1; day <= 5; day++) {
+              const cell = document.createElement("td");
+              const daySchedule = weeklySchedule[day] || [];
+              const periodSchedule = daySchedule.find((item) =>
+                item.startsWith(`${index + 1}교시`)
+              );
+              cell.textContent = periodSchedule
+                ? periodSchedule.split(": ")[1]
+                : "";
+              row.appendChild(cell);
+            }
+
+            tbody.appendChild(row);
+          });
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          scheduleList.appendChild(table);
+        } else {
+          const li = document.createElement("li");
+          li.textContent = "고치는중...";
+          scheduleList.appendChild(li);
+        }
+
+        if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
+          const weeklyMeals = {};
+
+          mealData.mealServiceDietInfo[1].row.forEach((item) => {
+            const date = item.MLSV_YMD;
+            if (!weeklyMeals[date]) {
+              weeklyMeals[date] = [];
+            }
+            const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
+              .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
+              .replace(/\(\d+\)/g, "")
+              .trim();
+            const menus = cleanMenu
+              .split("\n")
+              .filter((menu) => menu.trim() !== "");
+            weeklyMeals[date].push(...menus);
+          });
+
+          const days = ["월", "화", "수", "목", "금"];
+
+          const table = document.createElement("table");
+          const thead = document.createElement("thead");
+          const tbody = document.createElement("tbody");
+
+          const headerRow = document.createElement("tr");
+          const emptyHeader = document.createElement("th");
+          headerRow.appendChild(emptyHeader);
+          days.forEach((day) => {
+            const th = document.createElement("th");
+            th.textContent = day;
+            headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+
+          const maxRows = Math.max(
+            ...Object.values(weeklyMeals).map((menus) => menus.length)
+          );
+          for (let i = 0; i < maxRows; i++) {
+            const row = document.createElement("tr");
+            const periodCell = document.createElement("th");
+            periodCell.textContent = i === 0 ? "밥" : i === 1 ? "국" : `기타`;
+            row.appendChild(periodCell);
+
+            for (let day = 0; day < 5; day++) {
+              const cell = document.createElement("td");
+              const menus = weeklyMeals[Object.keys(weeklyMeals)[day]] || [];
+              cell.textContent = menus[i] || "";
+              row.appendChild(cell);
+            }
+
+            tbody.appendChild(row);
+          }
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          mealList.appendChild(table);
+        } else {
+          const li = document.createElement("li");
+          li.textContent = "급식표 정보가 없다 ㅋ";
+          mealList.appendChild(li);
+        }
+      }
       function navigateToDSP() {
-        window.location.href = "https://hwahong.pages.dev/DSP";
+        window.location.href = "DSP.html";
       }
-
       function navigateToNEW() {
-        window.location.href = "https://hwahong.pages.dev/NEW";
+        window.location.href = "NEW.html";
       }
+      document.addEventListener("DOMContentLoaded", displayCurrentDate);
     </script>
   </body>
 </html>
