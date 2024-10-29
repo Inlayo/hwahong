@@ -1,546 +1,541 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta property="og:title" content="화홍고 시간표 및 급식" />
-    <meta property="og:description" content="10217 이한결" />
-    <meta property="og:image" content="previewimage.png" />
-    <meta property="og:url" content="https://hwahong.pages.dev" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:site_name"
-      content="hwahong High School Timetable and Mealtable"
-    />
-    <meta property="og:locale" content="ko_KR" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
-  
 
-    <title>화홍고 시간표 및 급식</title>
-    <style>
-      body {
-        background-color: #fefefe;
-        font-family: Arial, sans-serif;
-        padding: 0px;
-        border-radius: 0px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        font-size: 16px;
-      }
-
-      .poor-story-regular {
-        font-family: "Poor Story", serif;
-        font-weight: 400;
-        font-style: normal;
-       }
+<head>
+  <meta charset="UTF-8" />
+  <meta property="og:title" content="화홍고 시간표 및 급식" />
+  <meta property="og:description" content="10217 이한결" />
+  <meta property="og:image" content="previewimage.png" />
+  <meta property="og:url" content="https://hwahong.pages.dev" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="hwahong High School Timetable and Mealtable" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 
 
-      h1 {
-        font-family: "Poor Story", serif;
-        font-weight: 400;
-        font-style:normal;
-        font-size: 24px;
-        margin-left: 5px;
-        margin-bottom: 0%;
-        padding: 10px;
-      }
+  <title>화홍고 시간표 및 급식</title>
+  <style>
+    body {
+      background-color: #fefefe;
+      font-family: Arial, sans-serif;
+      padding: 0px;
+      border-radius: 0px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-size: 16px;
+    }
 
-      .form-element {
-        font-family: "Poor Story", serif;
-        margin-right: 0%;
-        margin-left: 0%;
-        color: #666666;
-        padding: 5px;
-        display: inline-block;
-      }
+    .poor-story-regular {
+      font-family: "Poor Story", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
 
-      .form-button {
-        font-family: "Poor Story", serif;    
-        padding: 4px 9px;
-        border: 1px solid #cccccc;
-        border-radius: 5px;
-        background-color: #0066ff;
-        color: #ffffff;
-        font-size: 16px;
-        margin-right: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        text-align: center;
-        vertical-align: middle;
-      }
 
-      .form-button:hover {
-        background-color: #f49044;
-      }
+    h1 {
+      font-family: "Poor Story", serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 24px;
+      margin-left: 5px;
+      margin-bottom: 0%;
+      padding: 10px;
+    }
 
-      .styled-select {
-        font-family: "Poor Story", serif;
-        padding: 4px;
-        border: 1px solid #cccccc;
-        border-radius: 5px;
-        background-color: #fefeff;
-        font-size: 18px;
-        margin-right: 5px;
-        color: #333333;
-        vertical-align: middle;
-      }
+    .form-element {
+      font-family: "Poor Story", serif;
+      margin-right: 0%;
+      margin-left: 0%;
+      color: #666666;
+      padding: 5px;
+      display: inline-block;
+    }
 
-      div {
-        font-family: "Poor Story", serif;
-        list-style-type: none;
-        padding-left: 5px;
-      }
+    .form-button {
+      font-family: "Poor Story", serif;
+      padding: 4px 9px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      background-color: #0066ff;
+      color: #ffffff;
+      font-size: 16px;
+      margin-right: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+      vertical-align: middle;
+    }
 
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
+    .form-button:hover {
+      background-color: #f49044;
+    }
 
-      li {
-        margin-bottom: 5px;
-      }
+    .styled-select {
+      font-family: "Poor Story", serif;
+      padding: 4px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      background-color: #fefeff;
+      font-size: 18px;
+      margin-right: 5px;
+      color: #333333;
+      vertical-align: middle;
+    }
 
-      .date-display {
-        font-family: "Poor Story", serif;
-        font-weight: bold;
-        color: #666666;
-        padding-left: 15px;
-        padding-bottom: 10px;
-      }
+    div {
+      font-family: "Poor Story", serif;
+      list-style-type: none;
+      padding-left: 5px;
+    }
 
-      .name {
-        font-family: "Poor Story", serif;
-        font-size: 12px;
-        margin: 20px;
-        padding-left: 15px;
-      }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
 
-      table {
-        width: 20080206%; /* 한결 */
-        height: 20081206%; /* 은찬 */
-        max-width: 500px;
-        max-height: 500px;
-        border-collapse: separate;
-        border-spacing: 5px;
-        border-radius: 5px;
-        overflow: hidden;
-        text-align: center;
-      }
+    li {
+      margin-bottom: 5px;
+    }
 
-      td {
-        border: 1px solid #cccccc;
-        padding: 3px;
-        text-align: center;
-        border-radius: 10px;
-        width: 200px;
-        height: 50px;
-      }
+    .date-display {
+      font-family: "Poor Story", serif;
+      font-weight: bold;
+      color: #666666;
+      padding-left: 15px;
+      padding-bottom: 10px;
+    }
 
-      th {
-        background-color: #f0f0f0;
-        border: 1px solid #cccccc;
-        padding: 3px;
-        text-align: center;
-        border-radius: 10px;
-        width: 200px;
-        height: 50px;
-      }
+    .name {
+      font-family: "Poor Story", serif;
+      font-size: 12px;
+      margin: 20px;
+      padding-left: 15px;
+    }
 
-      .small-cell {
-        width: 10%;
-      }
+    table {
+      width: 20080206%; /* 한결 */
+      height: 20081206%; /* 은찬 */
+      max-width: 500px;
+      max-height: 500px;
+      border-collapse: separate;
+      border-spacing: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+      text-align: center;
+    }
 
-      .large-cell {
-        width: 20%;
-      }
+    td {
+      border: 1px solid #cccccc;
+      padding: 3px;
+      text-align: center;
+      border-radius: 10px;
+      width: 200px;
+      height: 50px;
+    }
 
-      .scpg {
-        font-family: "Poor Story", serif;
-        text-decoration-line: none;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 10px;
-        font-size: 15px;
-      }
+    th {
+      background-color: #f0f0f0;
+      border: 1px solid #cccccc;
+      padding: 3px;
+      text-align: center;
+      border-radius: 10px;
+      width: 200px;
+      height: 50px;
+    }
 
-      .scpg:link {
-        color: #9999ff;
-        text-decoration: none;
-      }
+    .small-cell {
+      width: 10%;
+    }
 
-      .scpg:visited {
-        color: #9999ff;
-        text-decoration: none;
-      }
+    .large-cell {
+      width: 20%;
+    }
 
-      .scpg:hover {
-        color: #99eeff;
-        text-decoration: none;
-      }
+    .scpg {
+      font-family: "Poor Story", serif;
+      text-decoration-line: none;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-top: 10px;
+      font-size: 15px;
+    }
 
-      .scpg:active {
-        color: #99eeff;
-        text-decoration: none;
-      }
-    </style>
-  </head>
+    .scpg:link {
+      color: #9999ff;
+      text-decoration: none;
+    }
 
-  <body>
-    <button class="form-button" onclick="navigateToDSP()">
-      데일리 스터디 플레너
+    .scpg:visited {
+      color: #9999ff;
+      text-decoration: none;
+    }
+
+    .scpg:hover {
+      color: #99eeff;
+      text-decoration: none;
+    }
+
+    .scpg:active {
+      color: #99eeff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="form-button" onclick="navigateToDSP()">
+    데일리 스터디 플레너
+  </button>
+  <button class="form-button" onclick="navigateToNEW()">새로운 버전</button>
+  <h1>시간표 및 급식</h1>
+  <div id="current-date" class="date-display"></div>
+  <form id="schedule-form">
+    <label for="grade" class="form-element">학년:</label>
+    <select id="grade" class="styled-select">
+      <option value="1">1학년</option>
+      <option value="2">2학년</option>
+      <option value="3">3학년</option>
+    </select>
+    <label for="class_num" class="form-element">반:</label>
+    <select id="class_num" class="styled-select">
+      <option value="1">1반</option>
+      <option value="2">2반</option>
+      <option value="3">3반</option>
+      <option value="4">4반</option>
+      <option value="5">5반</option>
+      <option value="6">6반</option>
+      <option value="7">7반</option>
+      <option value="8">8반</option>
+      <option value="9">9반</option>
+      <option value="10">10반</option>
+      <option value="11">11반</option>
+      <option value="12">12반</option>
+    </select>
+    <button type="button" onclick="fetchData()" class="form-button">
+      오늘
     </button>
-    <button class="form-button" onclick="navigateToNEW()">새로운 버전</button>
-    <h1>시간표 및 급식</h1>
-    <div id="current-date" class="date-display"></div>
-    <form id="schedule-form">
-      <label for="grade" class="form-element">학년:</label>
-      <select id="grade" class="styled-select">
-        <option value="1">1학년</option>
-        <option value="2">2학년</option>
-        <option value="3">3학년</option>
-      </select>
-      <label for="class_num" class="form-element">반:</label>
-      <select id="class_num" class="styled-select">
-        <option value="1">1반</option>
-        <option value="2">2반</option>
-        <option value="3">3반</option>
-        <option value="4">4반</option>
-        <option value="5">5반</option>
-        <option value="6">6반</option>
-        <option value="7">7반</option>
-        <option value="8">8반</option>
-        <option value="9">9반</option>
-        <option value="10">10반</option>
-        <option value="11">11반</option>
-        <option value="12">12반</option>
-      </select>
-      <button type="button" onclick="fetchData()" class="form-button">
-        오늘
-      </button>
-      <button type="button" onclick="fetchWeeklyData()" class="form-button">
-        전체
-      </button>
-    </form>
+    <button type="button" onclick="fetchWeeklyData()" class="form-button">
+      전체
+    </button>
+  </form>
 
-    <div id="result">
-      <h1>시간표</h1>
-      <div id="schedule"></div>
-      <h1>급식</h1>
-      <div id="meal"></div>
-    </div>
+  <div id="result">
+    <h1>시간표</h1>
+    <div id="schedule"></div>
+    <h1>급식</h1>
+    <div id="meal"></div>
+  </div>
 
-    <div class="scpg">
-      <a href="https://hwahong-h.goesw.kr/index.do" target="_blank" class="scpg"
-        >학교홈피</a
-      ><a href="https://github.com/Inlayo/hwahong" target="_blank" class="scpg"
-        >소스코드</a
-      >
-      <a href="http://컴시간학생.kr" target="_blank" class="scpg"
-        >컴시간</a>
-    </div>
+  <div class="scpg">
+    <a href="https://hwahong-h.goesw.kr/index.do" target="_blank" class="scpg">학교홈피</a><a
+      href="https://github.com/Inlayo/hwahong" target="_blank" class="scpg">소스코드</a>
+    <a href="http://컴시간학생.kr" target="_blank" class="scpg">컴시간</a>
+  </div>
 
-    <div class="name">10217 이한결</div>
+  <div class="name">10217 이한결</div>
 
-    <script>
-      const API_KEY = "34ff04d810454575a10ccfad4024f3b7";
-      const EDUCATION_OFFICE_CODE = "J10";
-      const SCHOOL_CODE = "7530479";
+  <script>
+    const API_KEY = "34ff04d810454575a10ccfad4024f3b7";
+    const EDUCATION_OFFICE_CODE = "J10";
+    const SCHOOL_CODE = "7530479";
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const savedGrade = localStorage.getItem("grade");
-        const savedClassNum = localStorage.getItem("class_num");
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedGrade = localStorage.getItem("grade");
+      const savedClassNum = localStorage.getItem("class_num");
 
-        if (savedGrade) {
-          document.getElementById("grade").value = savedGrade;
-        }
-
-        if (savedClassNum) {
-          document.getElementById("class_num").value = savedClassNum;
-        }
-
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = ("0" + (today.getMonth() + 1)).slice(-2);
-        const day = ("0" + today.getDate()).slice(-2);
-        document.getElementById(
-          "current-date"
-        ).textContent = `${year}년 ${month}월 ${day}일`;
-
-        if (savedGrade && savedClassNum) {
-          fetchData();
-        }
-      });
-
-      async function fetchData() {
-        const grade = document.getElementById("grade").value;
-        const class_num = document.getElementById("class_num").value;
-
-        localStorage.setItem("grade", grade);
-        localStorage.setItem("class_num", class_num);
-
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = ("0" + (today.getMonth() + 1)).slice(-2);
-        const day = ("0" + today.getDate()).slice(-2);
-
-        const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${year}${month}${day}&GRADE=${grade}&CLASS_NM=${class_num}`;
-        const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
-
-        try {
-          const [scheduleData, mealData] = await Promise.all([
-            fetchDataInternal(scheduleUrl),
-            fetchDataInternal(mealUrl),
-          ]);
-
-          displayData(scheduleData, mealData);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+      if (savedGrade) {
+        document.getElementById("grade").value = savedGrade;
       }
 
-      async function fetchWeeklyData() {
-        const grade = document.getElementById("grade").value;
-        const class_num = document.getElementById("class_num").value;
-
-        localStorage.setItem("grade", grade);
-        localStorage.setItem("class_num", class_num);
-
-        const today = new Date();
-        const startDate = new Date(today);
-        startDate.setDate(today.getDate() - today.getDay() + 1);
-        const endDate = new Date(startDate);
-        endDate.setDate(startDate.getDate() + 4);
-
-        const startYMD = `${startDate.getFullYear()}${(
-          "0" +
-          (startDate.getMonth() + 1)
-        ).slice(-2)}${("0" + startDate.getDate()).slice(-2)}`;
-        const endYMD = `${endDate.getFullYear()}${(
-          "0" +
-          (endDate.getMonth() + 1)
-        ).slice(-2)}${("0" + endDate.getDate()).slice(-2)}`;
-
-        const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&TI_FROM_YMD=${startYMD}&TI_TO_YMD=${endYMD}&GRADE=${grade}&CLASS_NM=${class_num}`;
-        const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_FROM_YMD=${startYMD}&MLSV_TO_YMD=${endYMD}`;
-
-        try {
-          const [scheduleData, mealData] = await Promise.all([
-            fetchDataInternal(scheduleUrl),
-            fetchDataInternal(mealUrl),
-          ]);
-
-          displayWeeklyData(scheduleData, mealData);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+      if (savedClassNum) {
+        document.getElementById("class_num").value = savedClassNum;
       }
 
-      async function fetchDataInternal(url) {
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return await response.json();
-        } catch (error) {
-          console.error("Error fetching data:", error);
-          throw error;
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = ("0" + (today.getMonth() + 1)).slice(-2);
+      const day = ("0" + today.getDate()).slice(-2);
+      document.getElementById(
+        "current-date"
+      ).textContent = `${year}년 ${month}월 ${day}일`;
+
+      if (savedGrade && savedClassNum) {
+        fetchData();
+      }
+    });
+
+    async function fetchData() {
+      const grade = document.getElementById("grade").value;
+      const class_num = document.getElementById("class_num").value;
+
+      localStorage.setItem("grade", grade);
+      localStorage.setItem("class_num", class_num);
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = ("0" + (today.getMonth() + 1)).slice(-2);
+      const day = ("0" + today.getDate()).slice(-2);
+
+      const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&ALL_TI_YMD=${year}${month}${day}&GRADE=${grade}&CLASS_NM=${class_num}`;
+      const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${year}${month}${day}`;
+
+      try {
+        const [scheduleData, mealData] = await Promise.all([
+          fetchDataInternal(scheduleUrl),
+          fetchDataInternal(mealUrl),
+        ]);
+
+        displayData(scheduleData, mealData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    async function fetchWeeklyData() {
+      const grade = document.getElementById("grade").value;
+      const class_num = document.getElementById("class_num").value;
+
+      localStorage.setItem("grade", grade);
+      localStorage.setItem("class_num", class_num);
+
+      const today = new Date();
+      const startDate = new Date(today);
+      startDate.setDate(today.getDate() - today.getDay() + 1);
+      const endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 4);
+
+      const startYMD = `${startDate.getFullYear()}${(
+        "0" +
+        (startDate.getMonth() + 1)
+      ).slice(-2)}${("0" + startDate.getDate()).slice(-2)}`;
+      const endYMD = `${endDate.getFullYear()}${(
+        "0" +
+        (endDate.getMonth() + 1)
+      ).slice(-2)}${("0" + endDate.getDate()).slice(-2)}`;
+
+      const scheduleUrl = `https://open.neis.go.kr/hub/hisTimetable?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&TI_FROM_YMD=${startYMD}&TI_TO_YMD=${endYMD}&GRADE=${grade}&CLASS_NM=${class_num}`;
+      const mealUrl = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=${EDUCATION_OFFICE_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_FROM_YMD=${startYMD}&MLSV_TO_YMD=${endYMD}`;
+
+      try {
+        const [scheduleData, mealData] = await Promise.all([
+          fetchDataInternal(scheduleUrl),
+          fetchDataInternal(mealUrl),
+        ]);
+
+        displayWeeklyData(scheduleData, mealData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    async function fetchDataInternal(url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        return await response.json();
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+      }
+    }
+
+    function displayData(scheduleData, mealData) {
+      const scheduleList = document.getElementById("schedule");
+      const mealList = document.getElementById("meal");
+
+      scheduleList.innerHTML = "";
+      mealList.innerHTML = "";
+
+      if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
+        scheduleData.hisTimetable[1].row.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
+          scheduleList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "고치는중...";
+        scheduleList.appendChild(li);
       }
 
-      function displayData(scheduleData, mealData) {
-        const scheduleList = document.getElementById("schedule");
-        const mealList = document.getElementById("meal");
-
-        scheduleList.innerHTML = "";
-        mealList.innerHTML = "";
-
-        if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
-          scheduleData.hisTimetable[1].row.forEach((item) => {
+      if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
+        mealData.mealServiceDietInfo[1].row.forEach((item) => {
+          const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
+            .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
+            .replace(/\(\d+\)/g, "")
+            .trim();
+          const menus = cleanMenu
+            .split("\n")
+            .filter((menu) => menu.trim() !== "");
+          menus.forEach((menu) => {
             const li = document.createElement("li");
-            li.textContent = `${item.PERIO}교시: ${item.ITRT_CNTNT}`;
-            scheduleList.appendChild(li);
+            li.textContent = menu;
+            mealList.appendChild(li);
           });
-        } else {
-          const li = document.createElement("li");
-          li.textContent = "고치는중...";
-          scheduleList.appendChild(li);
-        }
-
-        if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
-          mealData.mealServiceDietInfo[1].row.forEach((item) => {
-            const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
-              .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
-              .replace(/\(\d+\)/g, "")
-              .trim();
-            const menus = cleanMenu
-              .split("\n")
-              .filter((menu) => menu.trim() !== "");
-            menus.forEach((menu) => {
-              const li = document.createElement("li");
-              li.textContent = menu;
-              mealList.appendChild(li);
-            });
-          });
-        } else {
-          const li = document.createElement("li");
-          li.textContent = "급식표 정보가 없다 ㅋ";
-          mealList.appendChild(li);
-        }
+        });
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "급식표 정보가 없다 ㅋ";
+        mealList.appendChild(li);
       }
+    }
 
-      function displayWeeklyData(scheduleData, mealData) {
-        const scheduleList = document.getElementById("schedule");
-        const mealList = document.getElementById("meal");
+    function displayWeeklyData(scheduleData, mealData) {
+      const scheduleList = document.getElementById("schedule");
+      const mealList = document.getElementById("meal");
 
-        scheduleList.innerHTML = "";
-        mealList.innerHTML = "";
+      scheduleList.innerHTML = "";
+      mealList.innerHTML = "";
 
-        if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
-          const weeklySchedule = {};
+      if (scheduleData.hisTimetable && scheduleData.hisTimetable[1]) {
+        const weeklySchedule = {};
 
-          scheduleData.hisTimetable[1].row.forEach((item) => {
-            const date = item.ALL_TI_YMD;
-            const dayOfWeek = new Date(
-              date.slice(0, 4),
-              date.slice(4, 6) - 1,
-              date.slice(6, 8)
-            ).getDay();
-            if (!weeklySchedule[dayOfWeek]) {
-              weeklySchedule[dayOfWeek] = [];
-            }
-            weeklySchedule[dayOfWeek].push(
-              `${item.PERIO}교시: ${item.ITRT_CNTNT}`
-            );
-          });
-
-          const days = ["월", "화", "수", "목", "금"];
-          const periods = [
-            "1교시",
-            "2교시",
-            "3교시",
-            "4교시",
-            "5교시",
-            "6교시",
-            "7교시",
-          ];
-
-          const table = document.createElement("table");
-          const thead = document.createElement("thead");
-          const tbody = document.createElement("tbody");
-
-          const headerRow = document.createElement("tr");
-          const emptyHeader = document.createElement("th");
-          headerRow.appendChild(emptyHeader);
-          days.forEach((day) => {
-            const th = document.createElement("th");
-            th.textContent = day;
-            headerRow.appendChild(th);
-          });
-          thead.appendChild(headerRow);
-
-          periods.forEach((period, index) => {
-            const row = document.createElement("tr");
-            const periodCell = document.createElement("th");
-            periodCell.textContent = period;
-            row.appendChild(periodCell);
-
-            for (let day = 1; day <= 5; day++) {
-              const cell = document.createElement("td");
-              const daySchedule = weeklySchedule[day] || [];
-              const periodSchedule = daySchedule.find((item) =>
-                item.startsWith(`${index + 1}교시`)
-              );
-              cell.textContent = periodSchedule
-                ? periodSchedule.split(": ")[1]
-                : "";
-              row.appendChild(cell);
-            }
-
-            tbody.appendChild(row);
-          });
-
-          table.appendChild(thead);
-          table.appendChild(tbody);
-          scheduleList.appendChild(table);
-        } else {
-          const li = document.createElement("li");
-          li.textContent = "고치는중...";
-          scheduleList.appendChild(li);
-        }
-
-        if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
-          const weeklyMeals = {};
-
-          mealData.mealServiceDietInfo[1].row.forEach((item) => {
-            const date = item.MLSV_YMD;
-            if (!weeklyMeals[date]) {
-              weeklyMeals[date] = [];
-            }
-            const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
-              .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
-              .replace(/\(\d+\)/g, "")
-              .trim();
-            const menus = cleanMenu
-              .split("\n")
-              .filter((menu) => menu.trim() !== "");
-            weeklyMeals[date].push(...menus);
-          });
-
-          const days = ["월", "화", "수", "목", "금"];
-
-          const table = document.createElement("table");
-          const thead = document.createElement("thead");
-          const tbody = document.createElement("tbody");
-
-          const headerRow = document.createElement("tr");
-          const emptyHeader = document.createElement("th");
-          headerRow.appendChild(emptyHeader);
-          days.forEach((day) => {
-            const th = document.createElement("th");
-            th.textContent = day;
-            headerRow.appendChild(th);
-          });
-          thead.appendChild(headerRow);
-
-          const maxRows = Math.max(
-            ...Object.values(weeklyMeals).map((menus) => menus.length)
+        scheduleData.hisTimetable[1].row.forEach((item) => {
+          const date = item.ALL_TI_YMD;
+          const dayOfWeek = new Date(
+            date.slice(0, 4),
+            date.slice(4, 6) - 1,
+            date.slice(6, 8)
+          ).getDay();
+          if (!weeklySchedule[dayOfWeek]) {
+            weeklySchedule[dayOfWeek] = [];
+          }
+          weeklySchedule[dayOfWeek].push(
+            `${item.PERIO}교시: ${item.ITRT_CNTNT}`
           );
-          for (let i = 0; i < maxRows; i++) {
-            const row = document.createElement("tr");
-            const periodCell = document.createElement("th");
-            periodCell.textContent = i === 0 ? "밥" : i === 1 ? "국" : `기타`;
-            row.appendChild(periodCell);
+        });
 
-            for (let day = 0; day < 5; day++) {
-              const cell = document.createElement("td");
-              const menus = weeklyMeals[Object.keys(weeklyMeals)[day]] || [];
-              cell.textContent = menus[i] || "";
-              row.appendChild(cell);
-            }
+        const days = ["월", "화", "수", "목", "금"];
+        const periods = [
+          "1교시",
+          "2교시",
+          "3교시",
+          "4교시",
+          "5교시",
+          "6교시",
+          "7교시",
+        ];
 
-            tbody.appendChild(row);
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+
+        const headerRow = document.createElement("tr");
+        const emptyHeader = document.createElement("th");
+        headerRow.appendChild(emptyHeader);
+        days.forEach((day) => {
+          const th = document.createElement("th");
+          th.textContent = day;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        periods.forEach((period, index) => {
+          const row = document.createElement("tr");
+          const periodCell = document.createElement("th");
+          periodCell.textContent = period;
+          row.appendChild(periodCell);
+
+          for (let day = 1; day <= 5; day++) {
+            const cell = document.createElement("td");
+            const daySchedule = weeklySchedule[day] || [];
+            const periodSchedule = daySchedule.find((item) =>
+              item.startsWith(`${index + 1}교시`)
+            );
+            cell.textContent = periodSchedule
+              ? periodSchedule.split(": ")[1]
+              : "";
+            row.appendChild(cell);
           }
 
-          table.appendChild(thead);
-          table.appendChild(tbody);
-          mealList.appendChild(table);
-        } else {
-          const li = document.createElement("li");
-          li.textContent = "급식표 정보가 없다 ㅋ";
-          mealList.appendChild(li);
+          tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        scheduleList.appendChild(table);
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "고치는중...";
+        scheduleList.appendChild(li);
+      }
+
+      if (mealData.mealServiceDietInfo && mealData.mealServiceDietInfo[1]) {
+        const weeklyMeals = {};
+
+        mealData.mealServiceDietInfo[1].row.forEach((item) => {
+          const date = item.MLSV_YMD;
+          if (!weeklyMeals[date]) {
+            weeklyMeals[date] = [];
+          }
+          const cleanMenu = item.DDISH_NM.replace(/<\/?br\s*\/?>/g, "\n")
+            .replace(/\((?=\d+\.\d+)[^)]*\)/g, "")
+            .replace(/\(\d+\)/g, "")
+            .trim();
+          const menus = cleanMenu
+            .split("\n")
+            .filter((menu) => menu.trim() !== "");
+          weeklyMeals[date].push(...menus);
+        });
+
+        const days = ["월", "화", "수", "목", "금"];
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+
+        const headerRow = document.createElement("tr");
+        const emptyHeader = document.createElement("th");
+        headerRow.appendChild(emptyHeader);
+        days.forEach((day) => {
+          const th = document.createElement("th");
+          th.textContent = day;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        const maxRows = Math.max(
+          ...Object.values(weeklyMeals).map((menus) => menus.length)
+        );
+        for (let i = 0; i < maxRows; i++) {
+          const row = document.createElement("tr");
+          const periodCell = document.createElement("th");
+          periodCell.textContent = i === 0 ? "밥" : i === 1 ? "국" : `기타`;
+          row.appendChild(periodCell);
+
+          for (let day = 0; day < 5; day++) {
+            const cell = document.createElement("td");
+            const menus = weeklyMeals[Object.keys(weeklyMeals)[day]] || [];
+            cell.textContent = menus[i] || "";
+            row.appendChild(cell);
+          }
+
+          tbody.appendChild(row);
         }
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        mealList.appendChild(table);
+      } else {
+        const li = document.createElement("li");
+        li.textContent = "급식표 정보가 없다 ㅋ";
+        mealList.appendChild(li);
       }
-      function navigateToDSP() {
-        window.location.href = "DSP.html";
-      }
-      function navigateToNEW() {
-        window.location.href = "NEW.html";
-      }
-      document.addEventListener("DOMContentLoaded", displayCurrentDate);
-    </script>
-  </body>
+    }
+    function navigateToDSP() {
+      window.location.href = "DSP.html";
+    }
+    function navigateToNEW() {
+      window.location.href = "NEW.html";
+    }
+    document.addEventListener("DOMContentLoaded", displayCurrentDate);
+  </script>
+</body>
+
 </html>
