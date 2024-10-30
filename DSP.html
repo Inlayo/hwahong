@@ -1,351 +1,378 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>데일리 스터디 플래너</title>
     <style>
-        body {
-            font-family: "Noto Sans KR", sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        header h1 {
-            font-size: 2em;
-            color: #333;
-        }
-        .navigation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .navigation button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 0 5px;
-        }
-        .planner {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-        .schedule, .tasks {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .schedule-header, .tasks-header {
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        .time-table {
-            display: grid;
-            grid-template-rows: repeat(24, 1fr);
-        }
-        .time-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .time {
-            width: 20%;
-            text-align: center;
-            font-weight: bold;
-        }
-        .plan, .task {
-            width: 80%;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            background-color: #f9f9f9;
-            min-height: 30px;
-            word-wrap: break-word;
-        }
-        .plan:focus, .task:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-        .form-button {
-            font-family: "Noto Sans KR", sans-serif;
-            padding: 4px 9px;
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            background-color: #0066ff;
-            color: #ffffff;
-            font-size: 16px;
-            margin-right: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .form-button:hover {
-            background-color: #f49044;
-        }
-        .calendar {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-        .calendar-header {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin: 10px 0;
-        }
-        .calendar-day {
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.2s;
-        }
-        .calendar-day:hover {
-            background-color: #007bff;
-            color: white;
-        }
-        .calendar-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      header h1 {
+        font-size: 2em;
+        color: #333;
+      }
+      .navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+      }
+      .navigation button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 0 5px;
+      }
+      .planner {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+      .schedule,
+      .tasks {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .schedule-header,
+      .tasks-header {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+      .time-table {
+        display: grid;
+        grid-template-rows: repeat(24, 1fr);
+      }
+      .time-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      .time {
+        width: 20%;
+        text-align: center;
+        font-weight: bold;
+      }
+      .plan,
+      .task {
+        width: 80%;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: #f9f9f9;
+        min-height: 30px;
+        word-wrap: break-word;
+      }
+      .plan:focus,
+      .task:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+      .form-button {
+        font-family: "Noto Sans KR", sans-serif;
+        padding: 4px 9px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        background-color: #0066ff;
+        color: #ffffff;
+        font-size: 16px;
+        margin-right: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .form-button:hover {
+        background-color: #f49044;
+      }
+      .calendar {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+      .calendar-header {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        margin: 10px 0;
+      }
+      .calendar-day {
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+      }
+      .calendar-day:hover {
+        background-color: #007bff;
+        color: white;
+      }
+      .calendar-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <button class="form-button" onclick="navigateToDSP()">시간표로 돌아가기</button>
+  <body>
+    <button class="form-button" onclick="navigateToDSP()">
+      시간표로 돌아가기
+    </button>
     <div class="container">
-        <header>
-            <h1>Daily Study Planner - 2024</h1>
-            <div class="navigation">
-                <button id="prev-btn">&#8592; Previous</button>
-                <button id="calendar-btn">달력</button>
-                <span id="date-display"></span>
-                <button id="next-btn">Next &#8594;</button>
+      <header>
+        <h1>Daily Study Planner - 2024</h1>
+        <div class="navigation">
+          <button id="prev-btn">&#8592; Previous</button>
+          <button id="calendar-btn">달력</button>
+          <span id="date-display"></span>
+          <button id="next-btn">Next &#8594;</button>
+        </div>
+      </header>
+      <main>
+        <div class="planner">
+          <div class="schedule">
+            <div class="schedule-header">시간 계획</div>
+            <div class="time-table">
+              <div class="time-row" data-hour="0">
+                <div class="time">12 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="1">
+                <div class="time">1 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="2">
+                <div class="time">2 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="3">
+                <div class="time">3 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="4">
+                <div class="time">4 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="5">
+                <div class="time">5 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="6">
+                <div class="time">6 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="7">
+                <div class="time">7 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="8">
+                <div class="time">8 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="9">
+                <div class="time">9 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="10">
+                <div class="time">10 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="11">
+                <div class="time">11 AM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
+              <div class="time-row" data-hour="12">
+                <div class="time">12 PM</div>
+                <div class="plan" contenteditable="true"></div>
+              </div>
             </div>
-        </header>
-        <main>
-            <div class="planner">
-                <div class="schedule">
-                    <div class="schedule-header">시간 계획</div>
-                    <div class="time-table">
-                        <div class="time-row" data-hour="0">
-                            <div class="time">12 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="1">
-                            <div class="time">1 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="2">
-                            <div class="time">2 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="3">
-                            <div class="time">3 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="4">
-                            <div class="time">4 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="5">
-                            <div class="time">5 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="6">
-                            <div class="time">6 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>    
-                        <div class="time-row" data-hour="7">
-                            <div class="time">7 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="8">
-                            <div class="time">8 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="9">
-                            <div class="time">9 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="10">
-                            <div class="time">10 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="11">
-                            <div class="time">11 AM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                        <div class="time-row" data-hour="12">
-                            <div class="time">12 PM</div>
-                            <div class="plan" contenteditable="true"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tasks">
-                    <div class="tasks-header">할 일</div>
-                    <div class="task-list">
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                        <div class="task" contenteditable="true"></div>
-                    </div>
-                </div>
+          </div>
+          <div class="tasks">
+            <div class="tasks-header">할 일</div>
+            <div class="task-list">
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
+              <div class="task" contenteditable="true"></div>
             </div>
-        </main>
+          </div>
+        </div>
+      </main>
     </div>
     <div class="calendar" id="calendar">
-        <div class="calendar-header">달력</div>
-        <div class="calendar-grid" id="calendar-grid"></div>
-        <div class="calendar-buttons">
-            <button class="form-button" onclick="closeCalendar()">닫기</button>
-        </div>
+      <div class="calendar-header">달력</div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+      <div class="calendar-buttons">
+        <button class="form-button" onclick="closeCalendar()">닫기</button>
+      </div>
     </div>
     <script>
-        let currentDate = new Date();
-        const dateDisplay = document.getElementById("date-display");
-        const calendarGrid = document.getElementById("calendar-grid");
+      let currentDate = new Date();
+      const dateDisplay = document.getElementById("date-display");
+      const calendarGrid = document.getElementById("calendar-grid");
 
-        document.getElementById("prev-btn").addEventListener("click", () => {
-            currentDate.setDate(currentDate.getDate() - 1);
-            updateDateDisplay();
-            updateURL();
-        });
-
-        document.getElementById("next-btn").addEventListener("click", () => {
-            currentDate.setDate(currentDate.getDate() + 1);
-            updateDateDisplay();
-            updateURL();
-        });
-
-        document.getElementById("calendar-btn").addEventListener("click", openCalendar);
-
-        function updateDateDisplay() {
-            dateDisplay.textContent = currentDate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-            loadTasks();
-            updateURL();
-        }
-
-        function openCalendar() {
-            document.getElementById("calendar").style.display = "block";
-            generateCalendar();
-        }
-
-        function closeCalendar() {
-            document.getElementById("calendar").style.display = "none";
-        }
-
-        function generateCalendar() {
-            calendarGrid.innerHTML = "";
-            const month = currentDate.getMonth();
-            const year = currentDate.getFullYear();
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            for (let i = 1; i <= lastDay.getDate(); i++) {
-                const day = new Date(year, month, i);
-                const dayElement = document.createElement("div");
-                dayElement.textContent = i;
-                dayElement.className = "calendar-day";
-                dayElement.addEventListener("click", () => {
-                    currentDate = day;
-                    closeCalendar();
-                    updateDateDisplay();
-                });
-                calendarGrid.appendChild(dayElement);
-            }
-        }
-
-        function loadTasks() {
-            const plans = document.querySelectorAll(".plan");
-            plans.forEach((plan, index) => {
-                const hour = index; 
-                plan.textContent = localStorage.getItem(`task_${currentDate.toISOString().split("T")[0]}_${hour}`) || "";
-                plan.addEventListener("input", updateURL);
-            });
-            const tasks = document.querySelectorAll(".task");
-            tasks.forEach((task, index) => {
-                task.textContent = localStorage.getItem(`task_${currentDate.toISOString().split("T")[0]}_task_${index}`) || "";
-                task.addEventListener("input", updateURL);
-            });
-        }
-
-        function updateURL() {
-            const dateStr = currentDate.toISOString().split("T")[0].replace(/-/g, "");
-            let url = `https://hwahong.pages.dev/DSP/${dateStr}`;
-            const plans = document.querySelectorAll(".plan");
-            plans.forEach((plan, index) => {
-                const hour = index;
-                const task = plan.textContent.trim();
-                if (task) {
-                    url += `-${hour}h-${task}`;
-                }
-            });
-            const tasks = document.querySelectorAll(".task");
-            tasks.forEach((task) => {
-                const taskDescription = task.textContent.trim();
-                if (taskDescription) {
-                    url += `-task-${taskDescription}`;
-                }
-            });
-            window.history.pushState({}, '', url);
-            saveTasksToLocalStorage();
-        }
-
-        function saveTasksToLocalStorage() {
-            const plans = document.querySelectorAll(".plan");
-            plans.forEach((plan, index) => {
-                const hour = index;
-                localStorage.setItem(`task_${currentDate.toISOString().split("T")[0]}_${hour}`, plan.textContent);
-            });
-            const tasks = document.querySelectorAll(".task");
-            tasks.forEach((task, index) => {
-                localStorage.setItem(`task_${currentDate.toISOString().split("T")[0]}_task_${index}`, task.textContent);
-            });
-        }
-
+      document.getElementById("prev-btn").addEventListener("click", () => {
+        currentDate.setDate(currentDate.getDate() - 1);
         updateDateDisplay();
+      });
+
+      document.getElementById("next-btn").addEventListener("click", () => {
+        currentDate.setDate(currentDate.getDate() + 1);
+        updateDateDisplay();
+      });
+
+      document
+        .getElementById("calendar-btn")
+        .addEventListener("click", openCalendar);
+
+      function updateDateDisplay() {
+        dateDisplay.textContent = currentDate.toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+        loadTasks();
+        updateURL();
+      }
+
+      function openCalendar() {
+        document.getElementById("calendar").style.display = "block";
+        generateCalendar();
+      }
+
+      function closeCalendar() {
+        document.getElementById("calendar").style.display = "none";
+      }
+
+      function generateCalendar() {
+        calendarGrid.innerHTML = "";
+        const month = currentDate.getMonth();
+        const year = currentDate.getFullYear();
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        for (let i = 1; i <= lastDay.getDate(); i++) {
+          const day = new Date(year, month, i);
+          const dayElement = document.createElement("div");
+          dayElement.textContent = i;
+          dayElement.className = "calendar-day";
+          dayElement.addEventListener("click", () => {
+            currentDate.setFullYear(year, month, i);
+            closeCalendar();
+            updateDateDisplay();
+          });
+          calendarGrid.appendChild(dayElement);
+        }
+      }
+
+      function loadTasks() {
+        const plans = document.querySelectorAll(".plan");
+        plans.forEach((plan, index) => {
+          const hour = index;
+          plan.textContent =
+            localStorage.getItem(
+              `task_${currentDate.toISOString().split("T")[0]}_${hour}`
+            ) || "";
+          plan.addEventListener("input", saveTasksToLocalStorage);
+        });
+        const tasks = document.querySelectorAll(".task");
+        tasks.forEach((task, index) => {
+          task.textContent =
+            localStorage.getItem(
+              `task_${currentDate.toISOString().split("T")[0]}_task_${index}`
+            ) || "";
+          task.addEventListener("input", saveTasksToLocalStorage);
+        });
+      }
+
+      function updateURL() {
+        const dateStr = currentDate
+          .toISOString()
+          .split("T")[0]
+          .replace(/-/g, "");
+        let url = `https://hwahong.pages.dev/DSP/${dateStr}`;
+        const plans = document.querySelectorAll(".plan");
+        plans.forEach((plan, index) => {
+          const hour = index;
+          const task = plan.textContent.trim();
+          if (task) {
+            url += `-${hour}h-${task}`;
+          }
+        });
+        const tasks = document.querySelectorAll(".task");
+        tasks.forEach((task) => {
+          const taskDescription = task.textContent.trim();
+          if (taskDescription) {
+            url += `-task-${taskDescription}`;
+          }
+        });
+        window.history.pushState({}, "", url);
+      }
+
+      function saveTasksToLocalStorage() {
+        const plans = document.querySelectorAll(".plan");
+        plans.forEach((plan, index) => {
+          const hour = index;
+          localStorage.setItem(
+            `task_${currentDate.toISOString().split("T")[0]}_${hour}`,
+            plan.textContent
+          );
+        });
+        const tasks = document.querySelectorAll(".task");
+        tasks.forEach((task, index) => {
+          localStorage.setItem(
+            `task_${currentDate.toISOString().split("T")[0]}_task_${index}`,
+            task.textContent
+          );
+        });
+      }
+
+      updateDateDisplay();
     </script>
-</body>
+  </body>
 </html>
